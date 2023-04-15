@@ -1,0 +1,17 @@
+*~
+*#
+
+*.d
+*.o
+*.a
+*.out
+
+*.gcda
+*.gcno
+*.gcov
+vgcore.*
+
+/.vs/
+/.vscode/
+
+coding-style-reports.log
