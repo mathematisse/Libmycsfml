@@ -7,7 +7,8 @@
 
 #ifndef PROGRAM_H
     #define PROGRAM_H
-    #include "panel/panel.h"
+    #include "scene.h"
+    #include "cursor.h"
 
 enum program_state {
     Created,
@@ -17,31 +18,21 @@ enum program_state {
     Quit
 };
 
-typedef struct cursor_s {
-    int x;
-    int y;
-} cursor_t;
-
-typedef struct Program {
+typedef struct program_s {
     enum program_state pstate;
     sfRenderWindow *window;
     sfEvent event;
     cursor_t cursor;
+    scene_t **scenes;
     sfFont *font;
-    panel_t *panel;
-    panel_t *hovered;
-    panel_t *pressed;
-    panel_t *selected;
-    panel_t *board;
 } program_t;
 
-program_t *create_program(panel_t *(*create_panel)(void));
+program_t *create_program(program_maker_t maker);
 int start_program(program_t *h);
 void loop_program(program_t *p);
 void destroy_program(program_t *h);
 int execute_program(panel_t *(*create_panel)(void));
 
-void loop_clock(program_t *h);
 int switch_game_event(program_t *h);
 int switch_cursor_event(program_t *h);
 void loop_objects(program_t *h);
