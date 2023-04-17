@@ -30,6 +30,7 @@ SRC			=	canvas/canvas_event.c		\
 				program/program_factory.c	\
 				program/program_start.c		\
 				ui_panels/button.c			\
+				ui_panels/draggable.c		\
 				ui_panels/dropdown.c		\
 				ui_panels/input.c			\
 				ui_panels/empty.c			\

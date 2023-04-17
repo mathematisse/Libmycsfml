@@ -47,6 +47,7 @@ panel_t *demomenu(program_t *p)
 {
     rectransform_t *mrect = rtrans_create_resize();
     panel_t *pmain = panel_none_create(mrect);
+    sfTexture *defaultItem = sfTexture_createFromFile("ressources/cursor.png", NULL);
     panel_add_childs(pmain, 1, menuflex(p));
     return pmain;
 }

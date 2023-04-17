@@ -16,6 +16,8 @@
 #include "ui_panels/flex.h"
 #include "tools.h"
 #include "ui_panels/buttallfoos.h"
+#include "ui_panels/draggable.h"
+
 
 panel_t *minimap(void)
 {
@@ -127,13 +129,15 @@ panel_t *make_label(sfFont *font, const char *str)
 
 panel_t *musicbar(program_t *p)
 {
-    panel_t *epanel = panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 50}), sfWhite);
+    panel_t *epanel = panel_none_create(rtrans_create_flexelem((sfVector2f){200, 50}));
+    panel_add_childs(epanel, 2, make_drag((sfVector2f){960, 450}), panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 10}), sfWhite));
     return epanel;
 }
 
-panel_t *soundbar(program_t *p)
+panel_t *soundbar(panel_t *parent)
 {
-    panel_t *epanel = panel_empty_create(rtrans_create_flexelem( (sfVector2f){200, 50}), sfWhite);
+    panel_t *epanel = panel_none_create(rtrans_create_flexelem((sfVector2f){200, 50}));
+    panel_add_childs(epanel, 2, make_drag((sfVector2f){960, 570}), panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 10}), sfWhite));
     return epanel;
 }
 
@@ -144,7 +148,7 @@ panel_t *paramenuflex(program_t *p)
         make_label(p->font, "Music"),
         musicbar(p),
         make_label(p->font, "Sound"),
-        soundbar(p),
+        soundbar(fmain),
         make_label(p->font, "Window Size"),
         make_label(p->font, "Resolution")
     );

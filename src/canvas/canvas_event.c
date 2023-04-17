@@ -5,6 +5,7 @@
 ** Event foos for canvases
 */
 
+#include "ui_panels/draggable.h"
 #include "canvas.h"
 #include "panel.h"
 
@@ -30,11 +31,16 @@ void canvas_hover(canvas_t *c, sfVector2i *pos)
             on_panel_enter(hovered);
         c->hovered = hovered;
     }
+    if (c->pressed && c->pressed->type == PANEL_TYPE_DRAG) {
+        panel_drag_t *dpanel = (panel_drag_t *)(c->pressed->data);
+        on_drag_move(c->pressed, (sfVector2f){pos->x - dpanel->initpos.x, pos->y - dpanel->initpos.y});
+    }
 }
 
 void canvas_pressed(canvas_t *c, sfMouseButtonEvent e)
 {
-    canvas_hover(c, &(sfVector2i){e.x, e.y});
+    sfVector2i *pos = &(sfVector2i){e.x, e.y};
+    canvas_hover(c, pos);
     c->pressed = c->hovered;
     if (c->pressed != c->selected)
         on_panel_pressed(c->pressed);
