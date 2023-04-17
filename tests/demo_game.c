@@ -5,19 +5,21 @@
 ** Creates the base panels for paint
 */
 
-#include <stdlib.h>
-#include "theme.h"
-#include "ui_panels/flex.h"
+#include "demo.h"
 #include "ui_panels/empty.h"
+#include "ui_panels/button.h"
+#include "ui_panels/input.h"
+#include "ui_panels/text.h"
+#include "ui_panels/flex.h"
 #include "tools.h"
 
-panel_t *msg(void)
+panel_t *minimap(void)
 {
     rectransform_t *mrect = rtrans_create_centered(
-        (sfVector2f){-150, 113}, (sfVector2f){200, 100});
+        (sfVector2f){-200, 200}, (sfVector2f){200, 200});
     mrect->xanchor = ANCHOR_END;
     mrect->yanchor = ANCHOR_START;
-    panel_t *main = panel_empty_create(mrect, sfColor_fromRGB(255, 255, 200));
+    panel_t *main = panel_empty_create(mrect, sfBlack);
     return main;
 }
 
@@ -27,9 +29,9 @@ panel_t *quick_access(void)
     fmain->rect->pos.y = -120;
     fmain->rect->yanchor = ANCHOR_END;
     panel_add_childs(fmain, 3,
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfRed),
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfGreen),
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfBlue));
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfBlack),
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfBlack),
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfBlack));
     init_rshape(&(fmain->shape), sfWhite);
     return fmain;
 }
@@ -43,22 +45,15 @@ panel_t *toaster(void)
     return main;
 }
 
-panel_t *centerdraw(void)
+panel_t *escmenuflex(program_t *p)
 {
-    return panel_empty_create(
-        rtrans_create_centered(
-            (sfVector2f){0, 0},
-            (sfVector2f){300, 300}),
-        sfWhite);
-}
-
-panel_t *center_panel(void)
-{
-    return panel_empty_create(
-        rtrans_create_resize(
-            (sfVector2f){0, 0},
-            (sfVector2f){400, 400}),
-        sfYellow);
+    panel_t *fmain = make_flex((sfVector2i){1, 2}, (sfVector2f){300, 120});
+    panel_add_childs(fmain, 2,
+        create_continue_button(p),
+        create_quit_button(p)
+    );
+    init_rshape(&(fmain->shape), sfBlue);
+    return fmain;
 }
 
 panel_t *left_bar(float width)
@@ -67,29 +62,29 @@ panel_t *left_bar(float width)
         rtrans_create_barleft(
             (sfVector2f){width / 2, 0},
             (sfVector2f){width, 0}),
-        sfBlue);
+        sfBlack);
 }
 
-panel_t * top_bar(float height)
-{
-    return panel_empty_create(
-        rtrans_create_barup(
-            (sfVector2f){0, height / 2},
-            (sfVector2f){0, height}),
-        sfRed);
-}
-
-panel_t *demogame(void)
+panel_t *game_interface(void)
 {
     rectransform_t *mrect =
         rtrans_create_resize((sfVector2f){0, 0}, (sfVector2f){0, 0});
-    panel_t *main = panel_empty_create(mrect, sfBlack);
-    panel_add_childs(main, 6,
-        top_bar(100),
+    mrect->xanchor = ANCHOR_START;
+    mrect->yanchor = ANCHOR_START;
+    panel_t *main = panel_empty_create(mrect, sfTransparent);
+    panel_add_childs(main, 3,
         left_bar(200),
         quick_access(),
-        msg(),
-        centerdraw(),
-        center_panel());
+        minimap());
+    return main;
+}
+
+panel_t *demogame(program_t *p)
+{
+    rectransform_t *mrect =
+        rtrans_create_resize((sfVector2f){0, 0}, (sfVector2f){0, 0});
+    panel_t *main = panel_none_create(mrect);
+    panel_add_childs(main, 2, escmenuflex(p), game_interface());
+    main->childs[0]->state = PANEL_STATE_INACTIVE;
     return main;
 }

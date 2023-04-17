@@ -5,16 +5,9 @@
 ** Main function for the demo
 */
 
-#include <stdlib.h>
 #include <unistd.h>
-#include "program.h"
-#include "theme.h"
-#include "ui_panels/empty.h"
-#include "ui_panels/button.h"
-#include "tools.h"
-
-panel_t *demogame(void);
-panel_t *demomenu(program_t *p);
+#include <stdlib.h>
+#include "demo.h"
 
 scene_t **demo_scenes(program_t *p)
 {
@@ -26,10 +19,10 @@ scene_t **demo_scenes(program_t *p)
         return NULL;
     mpanels[0] = demomenu(p);
     mpanels[1] = NULL;
-    panels[0] = demogame();
+    panels[0] = demogame(p);
     panels[1] = NULL;
     scenes[0] = scene_create(mpanels, NULL);
-    scenes[1] = scene_create(panels, NULL);
+    scenes[1] = scene_create(panels, demo_content_maker());
     scenes[2] = NULL;
     scenes[0]->settings = (scene_settings_t) {
         .size = (sfVector2u) {1920, 1080},

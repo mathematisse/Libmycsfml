@@ -34,9 +34,10 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/input.c			\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
+				ui_panels/none.c			\
 				ui_panels/text.c
 
-CFLAGS		=	-W -Wall -Wextra -Wpedantic -Werror -I./include
+CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
@@ -44,7 +45,15 @@ SRC			:=	$(addprefix src/, $(SRC))
 
 OBJ			=	$(SRC:.c=.o)
 
-DEMOBJ		=	tests/demo_main.o tests/demo_game.o tests/demo_menu.o
+DEMOSRC		=	demo_content.c	\
+				demo_game.c		\
+				demo_main.c		\
+				demo_menu.c		\
+				demodels.c
+
+DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
+
+DEMOBJ		=	$(DEMOSRC:.c=.o)
 
 $(NAME)		:	$(OBJ)
 	ar rc $@ $^

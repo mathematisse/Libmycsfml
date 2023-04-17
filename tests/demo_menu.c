@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "program.h"
+#include "demo.h"
 #include "theme.h"
 #include "ui_panels/empty.h"
 #include "ui_panels/button.h"
@@ -17,40 +17,6 @@
 #include "tools.h"
 
 panel_t *demopanel(void);
-
-void change_scene(void *data)
-{
-    program_t *program = (program_t *) data;
-    (void) start_scene(program, 1);
-}
-
-static panel_t *create_start_button(program_t *p)
-{
-    rectransform_t *sb_rect = rtrans_create_flexelem(
-        (sfVector2f){0, 0}, (sfVector2f){200, 100});
-    panel_t *start_butt = panel_text_button_create(
-        sb_rect, str("Start", 5), p->font, PTYPE_EVBUTT);
-    ((panel_button_t *)start_butt->data)->trgt = p;
-    butt_set_foos(start_butt, change_scene, NULL);
-    return start_butt;
-}
-
-void quit_program(void *data)
-{
-    program_t *program = (program_t *) data;
-    program->pstate = Quit;
-}
-
-static panel_t *create_quit_button(program_t *p)
-{
-    rectransform_t *sb_rect = rtrans_create_flexelem(
-        (sfVector2f){0, 0}, (sfVector2f){200, 100});
-    panel_t *start_butt = panel_text_button_create(
-        sb_rect, str("Quit", 4), p->font, PTYPE_EVBUTT);
-    ((panel_button_t *)start_butt->data)->trgt = p;
-    butt_set_foos(start_butt, quit_program, NULL);
-    return start_butt;
-}
 
 panel_t *create_name_input(sfFont *font)
 {
@@ -87,7 +53,7 @@ panel_t *demomenu(program_t *p)
 {
     rectransform_t *mrect = rtrans_create_resize(
         (sfVector2f){0, 0}, (sfVector2f){0, 0});
-    panel_t *pmain = panel_empty_create(mrect, sfBlack);
+    panel_t *pmain = panel_none_create(mrect);
     panel_add_childs(pmain, 1, menuflex(p));
     return pmain;
 }
