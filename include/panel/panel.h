@@ -12,6 +12,7 @@
 typedef enum panel_type {
     PANEL_TYPE_NONE,
     PANEL_TYPE_EMPTY,
+    PANEL_TYPE_CONTENT,
     PANEL_TYPE_FLEX,
     PANEL_TYPE_INPUT,
     PANEL_TYPE_BOARD,
@@ -50,6 +51,6 @@ void panel_destroy(panel_t *panel);
 void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size);
 void panel_draw(sfRenderWindow *window, panel_t *panel);
 
-panel_t *get_hovered_panel(panel_t *panel, sfVector2i *pos);
+panel_t *get_hovered_panel(panel_t **panels, sfVector2i *pos);
 
 #endif /* PANEL_H */

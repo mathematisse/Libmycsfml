@@ -14,7 +14,7 @@ void on_panel_enter(panel_t *panel);
 void on_panel_leave(panel_t *panel);
 void on_panel_pressed(panel_t *panel);
 void on_panel_released(panel_t *panel);
-void on_panel_select(panel_t *panel, program_t *p);
+void on_panel_select(panel_t *panel);
 void on_panel_unselect(panel_t *panel);
 
 #endif /* PANEL_EVENT_H */
