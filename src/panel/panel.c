@@ -8,43 +8,6 @@
 #include <stdlib.h>
 #include "panel/panel.h"
 
-panel_t *panel_create(rectransform_t *rect, ptype_t type, void *data)
-{
-    panel_t *panel = malloc(sizeof(panel_t));
-    if (!panel)
-        return NULL;
-    panel->shape = NULL;
-    panel->sprite = NULL;
-    panel->text = NULL;
-    panel->type = type;
-    panel->state = PANEL_STATE_ACTIVE;
-    panel->data = data;
-    panel->rect = rect;
-    panel->pos =
-        pos_transform_rect(rect, &(sfVector2f){0, 0}, &(sfVector2f){0, 0});
-    panel->size = size_transform_rect(rect, &(sfVector2f){0, 0});
-    panel->childs = NULL;
-    panel->childs_count = 0;
-    return panel;
-}
-
-void panel_destroy(panel_t *panel)
-{
-    if (!panel)
-        return;
-    for (int i = 0; i < panel->childs_count; i++)
-        panel_destroy(panel->childs[i]);
-    free(panel);
-}
-
-void panel_add_childs(panel_t *parent, panel_t **childs, int nb_childs)
-{
-    if (!parent || !childs)
-        return;
-    parent->childs = childs;
-    parent->childs_count = nb_childs;
-}
-
 void panel_draw(sfRenderWindow *window, panel_t *panel)
 {
     if (!panel || !window)
@@ -61,7 +24,7 @@ void panel_draw(sfRenderWindow *window, panel_t *panel)
         panel_draw(window, panel->childs[i]);
 }
 
-panel_t *get_hovered_panel(panel_t *panel, sfVector2i *pos)
+static panel_t *get_hovered_of(panel_t *panel, sfVector2i *pos)
 {
     panel_t *hovered = NULL;
     sfFloatRect rect = {0, 0, 0, 0};
@@ -74,11 +37,25 @@ panel_t *get_hovered_panel(panel_t *panel, sfVector2i *pos)
         (int)panel->size.x,
         (int)panel->size.y};
     for (int i = 0; i < panel->childs_count; i++) {
-        hovered = get_hovered_panel(panel->childs[i], pos);
+        hovered = get_hovered_of(panel->childs[i], pos);
         if (hovered)
             break;
     }
     if (!hovered && sfFloatRect_contains(&rect, pos->x, pos->y))
         hovered = panel;
+    return hovered;
+}
+
+panel_t *get_hovered_panel(panel_t **panels, sfVector2i *pos)
+{
+    panel_t *hovered = NULL;
+
+    if (!panels || !pos)
+        return NULL;
+    for (int i = 0; panels[i]; i++) {
+        hovered = get_hovered_of(panels[i], pos);
+        if (hovered)
+            break;
+    }
     return hovered;
 }
