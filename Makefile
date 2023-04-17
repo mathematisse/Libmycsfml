@@ -14,6 +14,7 @@ SRC			=	canvas/canvas_event.c		\
 				scene/scene_event.c			\
 				scene/scene_factory.c		\
 				scene/scene_update.c		\
+				gratools.c					\
 				tools.c						\
 				panel/panel_factory.c		\
 				panel/panel_hover.c			\
@@ -32,7 +33,7 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/empty.c			\
 				ui_panels/text.c
 
-CFLAGS		=	-g -W -Wall -Wextra -Wpedantic -Werror -I./include
+CFLAGS		=	-W -Wall -Wextra -Wpedantic -Werror -I./include
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
@@ -40,7 +41,7 @@ SRC			:=	$(addprefix src/, $(SRC))
 
 OBJ			=	$(SRC:.c=.o)
 
-DEMOBJ		=	tests/demo.o tests/demo_panels.o
+DEMOBJ		=	tests/demo_main.o tests/demo_game.o tests/demo_menu.o
 
 $(NAME)		:	$(OBJ)
 	ar rc $@ $^
@@ -61,6 +62,9 @@ fclean		: 	clean
 	rm -f $(NAME)
 
 re			: 	fclean all
+
+debug		: 	CFLAGS += -g
+debug		: 	re demo
 
 demo		: 	$(NAME) $(DEMOBJ)
 	gcc -o demo $(DEMOBJ) $(CFLAGS) $(CSFML) -L. -lmycsfml
