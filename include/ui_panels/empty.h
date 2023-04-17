@@ -16,4 +16,11 @@ typedef struct panel_empty_s {
 panel_t *panel_empty_create(rectransform_t *rect, sfColor color);
 void panel_empty_destroy(panel_t *panel);
 
+typedef struct panel_none_s {
+    sfColor color;
+} panel_none_t;
+
+panel_t *panel_none_create(rectransform_t *rect);
+void panel_none_destroy(panel_t *panel);
+
 #endif /* PANEL_EMPTY_H */
