@@ -35,7 +35,9 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
-				ui_panels/text.c
+				ui_panels/text.c			\
+				ui_panels/buttallfoos.c		\
+				ui_panels/make_buttallfoos.c
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
@@ -48,8 +50,7 @@ OBJ			=	$(SRC:.c=.o)
 DEMOSRC		=	demo_content.c	\
 				demo_game.c		\
 				demo_main.c		\
-				demo_menu.c		\
-				demodels.c
+				demo_menu.c
 
 DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
 

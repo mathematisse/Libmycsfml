@@ -6,9 +6,22 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
 #include "ui_panels/button.h"
 #include "theme.h"
 #include "tools.h"
+
+panel_t *make_butt(const char *label, void *trgt, button_foo_t foo, sfFont *font)
+{
+    sfVector2f size = {200, 50};
+    rectransform_t *sb_rect = rtrans_create_flexelem(size);
+    panel_t *butt = panel_text_button_create(
+        sb_rect, strdup(label), font, PTYPE_EVBUTT);
+
+    ((panel_button_t *)butt->data)->trgt = trgt;
+    butt_set_foos(butt, foo, NULL);
+    return butt;
+}
 
 static panel_button_t *button_create(void)
 {
