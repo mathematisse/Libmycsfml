@@ -44,7 +44,7 @@ struct panel_s {
 };
 
 panel_t *panel_create(rectransform_t *rect, ptype_t type, void *data);
-void panel_add_childs(panel_t *panel, panel_t **childs, int count);
+void panel_add_childs(panel_t *parent, size_t n, ...);
 
 void panel_destroy(panel_t *panel);
 void on_panel_enter(panel_t *panel);
