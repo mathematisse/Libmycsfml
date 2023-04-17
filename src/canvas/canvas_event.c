@@ -32,15 +32,17 @@ void canvas_hover(canvas_t *c, sfVector2i *pos)
     }
 }
 
-void canvas_pressed(canvas_t *c)
+void canvas_pressed(canvas_t *c, sfMouseButtonEvent e)
 {
+    canvas_hover(c, &(sfVector2i){e.x, e.y});
     c->pressed = c->hovered;
     if (c->pressed != c->selected)
         on_panel_pressed(c->pressed);
 }
 
-void canvas_released(canvas_t *c)
+void canvas_released(canvas_t *c, sfMouseButtonEvent e)
 {
+    canvas_hover(c, &(sfVector2i){e.x, e.y});
     if (c->pressed != c->selected)
         on_panel_released(c->pressed);
     if (c->pressed == c->hovered && c->pressed != c->selected) {

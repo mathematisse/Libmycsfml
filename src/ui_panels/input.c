@@ -44,6 +44,7 @@ panel_t *panel_input_create(
     trect = sfText_getLocalBounds(panel->text);
     sfText_setOrigin(panel->text, (sfVector2f){
         trect.left + trect.width / 2.0f, panel->rect->size.y / 7.0f});
+    sfText_setColor(panel->text, sfBlack);
     init_ipanel(ipanel, type);
     return panel;
 }

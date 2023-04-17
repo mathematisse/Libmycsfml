@@ -33,7 +33,7 @@ void scene_pressed(scene_t *s, sfMouseButtonEvent e)
     if (!s)
         return;
     if (e.button == sfMouseLeft)
-        canvas_pressed(s->canvas);
+        canvas_pressed(s->canvas, e);
     if (s->canvas->hovered == NULL && s->content && s->content->on_press)
         s->content->on_press(s->content, e);
 }
@@ -43,7 +43,7 @@ void scene_released(scene_t *s, sfMouseButtonEvent e)
     if (!s)
         return;
     if (e.button == sfMouseLeft)
-        canvas_released(s->canvas);
+        canvas_released(s->canvas, e);
     if (s->content && s->content->on_release)
         s->content->on_release(s->content, e);
 }

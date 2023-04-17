@@ -24,7 +24,11 @@ void on_panel_leave(panel_t *panel)
     if (!panel)
         return;
     if (is_interactable(panel->type)) {
-        if (panel->shape)
+        if (!(panel->shape))
+            return;
+        if (panel->type == PANEL_TYPE_INPUT)
+            sfRectangleShape_setFillColor(panel->shape, sfWhite);
+        else
             sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
     }
 }
@@ -45,6 +49,6 @@ void on_panel_released(panel_t *panel)
         return;
     if (is_interactable(panel->type)) {
         if (panel->shape)
-            sfRectangleShape_setFillColor(panel->shape, BUTTON_HOVER);
+            sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
     }
 }

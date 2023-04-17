@@ -33,6 +33,7 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/dropdown.c		\
 				ui_panels/input.c			\
 				ui_panels/empty.c			\
+				ui_panels/flex.c			\
 				ui_panels/text.c
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -Werror -I./include
