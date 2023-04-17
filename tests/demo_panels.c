@@ -88,7 +88,6 @@ panel_t * top_bar(void)
     return main;
 }
 
-
 panel_t *demopanel(void)
 {
     rectransform_t *mrect = rectransform_create();
