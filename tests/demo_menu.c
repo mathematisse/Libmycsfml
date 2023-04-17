@@ -11,6 +11,9 @@
 #include "theme.h"
 #include "ui_panels/empty.h"
 #include "ui_panels/button.h"
+#include "ui_panels/input.h"
+#include "ui_panels/text.h"
+#include "ui_panels/flex.h"
 #include "tools.h"
 
 panel_t *demopanel(void);
@@ -23,17 +26,10 @@ void change_scene(void *data)
 
 static panel_t *create_start_button(program_t *p)
 {
-    rectransform_t *sb_rect = rectransform_create();
-    sb_rect->size = (sfVector2f){200, 100};
-    sb_rect->pos = (sfVector2f){0, -75};
-    sb_rect->xanchor = ANCHOR_MIDDLE;
-    sb_rect->yanchor = ANCHOR_MIDDLE;
-    sb_rect->resize = RESIZE_NONE;
-    panel_t *start_butt =
-        panel_text_button_create(sb_rect, str("Start", 5), p->font, PTYPE_EVBUTT);
-    start_butt->state = PANEL_STATE_ACTIVE;
-    start_butt->childs = NULL;
-    start_butt->childs_count = 0;
+    rectransform_t *sb_rect = rtrans_create_flexelem(
+        (sfVector2f){0, 0}, (sfVector2f){200, 100});
+    panel_t *start_butt = panel_text_button_create(
+        sb_rect, str("Start", 5), p->font, PTYPE_EVBUTT);
     ((panel_button_t *)start_butt->data)->trgt = p;
     butt_set_foos(start_butt, change_scene, NULL);
     return start_butt;
@@ -45,39 +41,55 @@ void quit_program(void *data)
     program->pstate = Quit;
 }
 
-static panel_t *creat_quit_button(program_t *p)
+static panel_t *create_quit_button(program_t *p)
 {
-    rectransform_t *sb_rect = rectransform_create();
-    sb_rect->size = (sfVector2f){200, 100};
-    sb_rect->pos = (sfVector2f){0, 75};
-    sb_rect->xanchor = ANCHOR_MIDDLE;
-    sb_rect->yanchor = ANCHOR_MIDDLE;
-    sb_rect->resize = RESIZE_NONE;
-    panel_t *start_butt =
-        panel_text_button_create(sb_rect, str("Quit", 4), p->font, PTYPE_EVBUTT);
-    start_butt->state = PANEL_STATE_ACTIVE;
-    start_butt->childs = NULL;
-    start_butt->childs_count = 0;
+    rectransform_t *sb_rect = rtrans_create_flexelem(
+        (sfVector2f){0, 0}, (sfVector2f){200, 100});
+    panel_t *start_butt = panel_text_button_create(
+        sb_rect, str("Quit", 4), p->font, PTYPE_EVBUTT);
     ((panel_button_t *)start_butt->data)->trgt = p;
     butt_set_foos(start_butt, quit_program, NULL);
     return start_butt;
 }
 
+panel_t *create_name_input(sfFont *font)
+{
+    rectransform_t *rect = rtrans_create_flexelem(
+        (sfVector2f){0, 0}, (sfVector2f){200, 50});
+    panel_t *radius_input = panel_input_create(
+        rect, font, EntryTypeLetter);
+    return radius_input;
+}
+
+panel_t *create_name_input_label(sfFont *font)
+{
+    rectransform_t *rect = rtrans_create_flexelem(
+        (sfVector2f){0, 0}, (sfVector2f){200, 50});
+    panel_t *shape_infotext = panel_text_create(
+        rect, font, "Enter your name:");
+    return shape_infotext;
+}
+
+panel_t *menuflex(program_t *p)
+{
+    rectransform_t *mrect = rtrans_create_centered(
+        (sfVector2f){0, -300}, (sfVector2f){300, 600});
+    panel_t *pmain = panel_flex_create(mrect,
+        (sfVector2i){1, 4}, (sfVector2f){200, 120});
+    panel_add_childs(pmain, 4,
+        create_name_input_label(p->font),
+        create_name_input(p->font),
+        create_start_button(p),
+        create_quit_button(p)
+    );
+    return pmain;
+}
+
 panel_t *demomenu(program_t *p)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){0, 0};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_XY;
+    rectransform_t *mrect = rtrans_create_resize(
+        (sfVector2f){0, 0}, (sfVector2f){0, 0});
     panel_t *pmain = panel_empty_create(mrect, sfBlack);
-    pmain->state = PANEL_STATE_ACTIVE;
-    panel_t **childs = malloc(sizeof(panel_t *) * 3);
-    childs[0] = create_start_button(p);
-    childs[1] = creat_quit_button(p);
-    childs[2] = NULL;
-    pmain->childs = childs;
-    pmain->childs_count = 2;
+    panel_add_childs(pmain, 1, menuflex(p));
     return pmain;
 }
