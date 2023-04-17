@@ -34,7 +34,7 @@ void scene_pressed(scene_t *s, sfMouseButtonEvent e)
         return;
     if (e.button == sfMouseLeft)
         canvas_pressed(s->canvas);
-    if (s->canvas->hovered == NULL)
+    if (s->canvas->hovered == NULL && s->content && s->content->on_press)
         s->content->on_press(s->content, e);
 }
 

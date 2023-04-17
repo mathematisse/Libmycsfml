@@ -28,15 +28,14 @@ int start_first_scene(program_t *p)
 int start_scene(program_t *p, int i)
 {
     scene_settings_t settings = p->scenes[i]->settings;
-    sfVector2f pos = {-settings.size.x / 2, -settings.size.y / 2};
-    sfVector2f size = {(float) settings.size.x, (float) settings.size.y};
 
     p->current_scene = i;
     if (!(p->window))
         return EXIT_FAILURE;
     sfRenderWindow_setTitle(p->window, settings.title);
     sfRenderWindow_setSize(p->window, settings.size);
-    canvas_resize(p->scenes[i]->canvas, &pos, &size);
+    resize_event(p, (sfSizeEvent)
+        {.width = settings.size.x, .height = settings.size.y});
     return EXIT_SUCCESS;
 }
 

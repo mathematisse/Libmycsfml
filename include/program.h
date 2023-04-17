@@ -27,10 +27,13 @@ typedef struct program_s {
     sfFont *font;
 } program_t;
 
+typedef scene_t **(*program_maker_t)(program_t *);
+
 program_t *create_program(program_maker_t maker);
 void destroy_program(program_t *p);
 int start_program(program_t *p);
+int start_scene(program_t *p, int i);
 int execute_program(program_maker_t maker);
 int loop_events(program_t *p);
-
+void resize_event(program_t *p, sfSizeEvent e);
 #endif /* PROGRAM_H */

@@ -8,7 +8,7 @@
 #include "program.h"
 #include "ui_panels/input.h"
 
-static void resize_event(program_t *p, sfSizeEvent e)
+void resize_event(program_t *p, sfSizeEvent e)
 {
     sfView *view = NULL;
     sfVector2f pos = { -((float) e.width) / 2, -((float) e.height) / 2 };

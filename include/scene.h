@@ -22,8 +22,6 @@ typedef struct scene_s {
     content_t *content;
 } scene_t;
 
-typedef scene_t **(*program_maker_t)(void);
-
 scene_t *scene_create(panel_t **panels, void *content);
 void scenes_destroy(scene_t **scenes);
 

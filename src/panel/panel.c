@@ -32,8 +32,8 @@ static panel_t *get_hovered_of(panel_t *panel, sfVector2i *pos)
     if (!panel || !pos || panel->state == PANEL_STATE_INACTIVE)
         return NULL;
     rect = (sfFloatRect) {
-        (int)panel->pos.x,
-        (int)panel->pos.y,
+        (int)(panel->pos.x - panel->size.x / 2),
+        (int)(panel->pos.y - panel->size.y / 2),
         (int)panel->size.x,
         (int)panel->size.y};
     for (int i = 0; i < panel->childs_count; i++) {
