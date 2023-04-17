@@ -1,5 +1,5 @@
 ##
-## PERSONAL PROJECT, 2023
+## PERSONNAL PROJECT, 2023
 ## Libmycsfml
 ## File description:
 ## Makefile for the compilation of the lib
@@ -7,15 +7,23 @@
 
 NAME		=	libmycsfml.a
 
-SRC			=	mouse_evt.c				\
+SRC			=	canvas_factory.c		\
+				canvas_event.c			\
+				canvas_update.c			\
+				cursor.c				\
+				scene_event.c			\
+				scene_update.c			\
+				scene_factory.c			\
 				tools.c					\
+				panel/panel_factory.c	\
 				panel/panel_hover.c		\
 				panel/panel_resize.c	\
 				panel/panel_select.c	\
+				panel/panel_tests.c		\
 				panel/panel.c			\
 				panel/rectransform.c	\
 				program/program_start.c	\
-				program/program_tools.c	\
+				program/program_event.c	\
 				program/program.c		\
 				ui_panels/button.c		\
 				ui_panels/dropdown.c	\
@@ -23,13 +31,15 @@ SRC			=	mouse_evt.c				\
 				ui_panels/panel_empty.c	\
 				ui_panels/text.c		\
 
-CFLAGS		=	-W -Wall -Wextra -I./include
+CFLAGS		=	-g -W -Wall -Wextra -Wpedantic -Werror -I./include
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
 SRC			:=	$(addprefix src/, $(SRC))
 
 OBJ			=	$(SRC:.c=.o)
+
+DEMOBJ		=	tests/demo.o tests/demo_panels.o
 
 $(NAME)		:	$(OBJ)
 	ar rc $@ $^
@@ -51,7 +61,10 @@ fclean		: 	clean
 
 re			: 	fclean all
 
-demo		: 	$(NAME) tests/demo.o tests/demo_panels.o
-	gcc -o demo tests/demo.o tests/demo_panels.o $(CFLAGS) $(CSFML) -L. -lmycsfml
+demo		: 	$(NAME) $(DEMOBJ)
+	gcc -o demo $(DEMOBJ) $(CFLAGS) $(CSFML) -L. -lmycsfml
 
-.PHONY 		: 	all clean fclean re
+run			: 	demo
+	./demo
+
+.PHONY 		: 	all clean fclean re run

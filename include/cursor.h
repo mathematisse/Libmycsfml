@@ -10,13 +10,12 @@
     #include <SFML/Graphics.h>
 
 typedef struct cursor_s {
-    sfVector2f pos;
+    sfVector2i pos;
     sfSprite *sprite;
     sfTexture *texture;
 } cursor_t;
 
 cursor_t *cursor_create(void);
-void cursor_destroy(cursor_t *cursor);
-void cursor_set_pos(cursor_t *cursor, sfVector2f pos);
-
+void cursor_draw(sfRenderWindow *w, cursor_t *c);
+void cursor_destroy(cursor_t *c);
 #endif /* CURSOR_H */
