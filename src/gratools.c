@@ -6,6 +6,7 @@
 */
 
 #include <SFML/Graphics.h>
+#include "rectransform.h"
 
 void init_text(sfText **text, sfFont *font, const char *str)
 {
@@ -22,4 +23,26 @@ void init_text(sfText **text, sfFont *font, const char *str)
     trect = sfText_getLocalBounds(*text);
     sfText_setOrigin(*text, (sfVector2f){trect.left + trect.width / 2.0f,
         trect.top + trect.height / 2.0f});
+}
+
+void init_rshape(sfRectangleShape **shape, sfColor color)
+{
+    if (!shape)
+        return;
+    *shape = sfRectangleShape_create();
+    if (!*shape)
+        return;
+    sfRectangleShape_setFillColor(*shape, color);
+}
+
+void init_sprite(sfSprite **sprite, sfTexture *texture, rectransform_t *r)
+{
+    if (!sprite || !texture || !r)
+        return;
+    *sprite = sfSprite_create();
+    if (!*sprite)
+        return;
+    sfSprite_setTexture(*sprite, texture, sfTrue);
+    sfSprite_setOrigin(*sprite,
+        (sfVector2f){r->size.x / 2, r->size.y / 2});
 }

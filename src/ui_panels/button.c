@@ -42,11 +42,7 @@ panel_t *panel_text_button_create(
     if (!panel)
         return NULL;
     init_text(&(panel->text), font, str);
-    panel->shape = sfRectangleShape_create();
-    sfRectangleShape_setOrigin(panel->shape,
-        (sfVector2f){rect->size.x / 2, rect->size.y / 2});
-    if (panel->shape)
-        sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
+    init_rshape(&(panel->shape), BUTTON_BASE);
     bpanel->text = str;
     return panel;
 
@@ -65,14 +61,8 @@ panel_t *panel_image_button_create(
     panel = panel_create(rect, type, bpanel);
     if (!panel)
         return NULL;
-    if (texture){
-        panel->sprite = sfSprite_create();
-        sfSprite_setTexture(panel->sprite, texture, sfTrue);
-        sfSprite_setScale(panel->sprite, (sfVector2f){0.3, 0.3});
-    }
-    panel->shape = sfRectangleShape_create();
-    if (panel->shape)
-        sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
+    init_sprite(&(panel->sprite), texture, rect);
+    init_rshape(&(panel->shape), BUTTON_BASE);
     bpanel->texture = texture;
     return panel;
 }

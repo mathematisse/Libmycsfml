@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "ui_panels/empty.h"
+#include "tools.h"
 
 panel_t *panel_empty_create(rectransform_t *rect, sfColor color)
 {
@@ -18,9 +19,7 @@ panel_t *panel_empty_create(rectransform_t *rect, sfColor color)
     panel = panel_create(rect, PANEL_TYPE_EMPTY, epanel);
     if (!panel)
         return NULL;
-    panel->shape = sfRectangleShape_create();
-    if (panel->shape)
-        sfRectangleShape_setFillColor(panel->shape, color);
+    init_rshape(&(panel->shape), color);
     epanel->color = color;
     return panel;
 }
