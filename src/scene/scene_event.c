@@ -11,7 +11,7 @@ void scene_hover(scene_t *s, sfVector2i e)
 {
     if (!s)
         return;
-    if (!s->content) {
+    if (!s->content || s->content->state == CONTENT_STATE_PAUSE) {
         canvas_hover(s->canvas, &e);
         return;
     }
@@ -52,6 +52,18 @@ void scene_key_pressed(scene_t *s, sfKeyEvent e)
 {
     if (!s)
         return;
+    if (e.code == sfKeyEscape && s->content) {
+        s->content->state = CONTENT_STATE_PAUSE;
+        if (s->content->on_pause)
+            s->content->on_pause(s->content);
+        s->canvas->panels[0]->childs[0]->state =
+            PANEL_STATE_ACTIVE == s->canvas->panels[0]->childs[0]->state
+            ? PANEL_STATE_INACTIVE : PANEL_STATE_ACTIVE;
+        s->canvas->panels[0]->childs[1]->state =
+            PANEL_STATE_INACTIVE == s->canvas->panels[0]->childs[1]->state
+            ? PANEL_STATE_ACTIVE : PANEL_STATE_INACTIVE;
+        return;
+    }
     if (s->content && s->content->on_key_press)
         s->content->on_key_press(s->content, e);
 }

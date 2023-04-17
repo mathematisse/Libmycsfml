@@ -48,7 +48,13 @@ void canvas_released(canvas_t *c, sfMouseButtonEvent e)
     if (c->pressed == c->hovered && c->pressed != c->selected) {
         on_panel_select(c->pressed);
         on_panel_unselect(c->selected);
-        c->selected = c->pressed;
+        if (c->pressed && c->pressed->type == PTYPE_EVBUTT) {
+            on_panel_released(c->pressed);
+            on_panel_unselect(c->selected);
+            c->hovered = NULL;
+            c->selected = NULL;
+        } else
+            c->selected = c->pressed;
     }
     c->pressed = NULL;
 }
