@@ -14,6 +14,7 @@ typedef void (*button_foo_t)(void *);
 typedef struct panel_button_s {
     const char *text;
     sfTexture *texture;
+    void *trgt;
     void (*on_enter)(void *);
     void (*on_exit)(void *);
     void (*on_press)(void *);

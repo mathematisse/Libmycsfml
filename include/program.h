@@ -21,20 +21,15 @@ enum program_state {
 typedef struct program_s {
     enum program_state pstate;
     sfRenderWindow *window;
-    sfEvent event;
-    cursor_t cursor;
+    cursor_t *cursor;
     scene_t **scenes;
+    int current_scene;
     sfFont *font;
 } program_t;
 
 program_t *create_program(program_maker_t maker);
-int start_program(program_t *h);
-void loop_program(program_t *p);
-void destroy_program(program_t *h);
-int execute_program(panel_t *(*create_panel)(void));
-
-int switch_game_event(program_t *h);
-int switch_cursor_event(program_t *h);
-void loop_objects(program_t *h);
+int start_program(program_t *p);
+int execute_program(program_maker_t maker);
+int loop_events(program_t *p);
 
 #endif /* PROGRAM_H */

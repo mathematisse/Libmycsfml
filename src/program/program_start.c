@@ -7,9 +7,8 @@
 
 #include <stdlib.h>
 #include "program.h"
-#include "theme.h"
 
-program_t *create_program(panel_t *(*create_panel)(void))
+program_t *create_program(program_maker_t maker)
 {
     program_t *prog = malloc(sizeof(program_t));
 
@@ -17,30 +16,51 @@ program_t *create_program(panel_t *(*create_panel)(void))
         return NULL;
     prog->pstate = Created;
     prog->window = NULL;
-    prog->event = (sfEvent) { 0 };
+    prog->cursor = cursor_create();
+    prog->scenes = maker();
+    prog->current_scene = -1;
     prog->font = sfFont_createFromFile("ressources/Lato-Bold.ttf");
-    prog->panel = create_panel();
-    prog->hovered = NULL;
-    prog->pressed = NULL;
-    prog->selected = NULL;
     return prog;
+}
+
+int start_first_scene(program_t *p)
+{
+    scene_settings_t settings = p->scenes[0]->settings;
+    sfVideoMode mode = {settings.size.x, settings.size.y, 32};
+    sfVector2f pos = {-settings.size.x / 2, -settings.size.y / 2};
+    sfVector2f size = {(float) settings.size.x, (float) settings.size.y};
+
+    p->current_scene = 0;
+    p->window = sfRenderWindow_create(mode, settings.title,
+        settings.style, NULL);
+    if (!(p->window))
+        return EXIT_FAILURE;
+    sfRenderWindow_setFramerateLimit(p->window, 60);
+    canvas_resize(p->scenes[0]->canvas, &pos, &size);
+    return EXIT_SUCCESS;
+}
+
+int start_scene(program_t *p, int i)
+{
+    scene_settings_t settings = p->scenes[i]->settings;
+    sfVector2f pos = {-settings.size.x / 2, -settings.size.y / 2};
+    sfVector2f size = {(float) settings.size.x, (float) settings.size.y};
+
+    p->current_scene = i;
+    if (!(p->window))
+        return EXIT_FAILURE;
+    sfRenderWindow_setTitle(p->window, settings.title);
+    sfRenderWindow_setSize(p->window, settings.size);
+    canvas_resize(p->scenes[i]->canvas, &pos, &size);
+    return EXIT_SUCCESS;
 }
 
 int start_program(program_t *p)
 {
-    sfVideoMode mode = { 1920, 1080, 32 };
-
-    p->window = sfRenderWindow_create(
-        mode,
-        "Mathematisse CSFML Template",
-        sfResize | sfClose | sfTitlebar,
-        NULL);
-    if (!(p->window))
+    if (p->pstate != Created)
         return EXIT_FAILURE;
-    sfRenderWindow_setFramerateLimit(p->window, 60);
+    if (start_first_scene(p) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     p->pstate = Started;
-    sfVector2f pos = { -960, -540 };
-    sfVector2f size = { 1920, 1080 };
-    panel_resize(p->panel, &pos, &size);
     return EXIT_SUCCESS;
 }
