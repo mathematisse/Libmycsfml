@@ -10,7 +10,7 @@
     #include <SFML/Graphics.h>
 
 typedef enum entry_type_s {
-    EntryTypeFile,
+    EntryTypeLetter,
     EntryTypeNumber
 } entry_type_t;
 

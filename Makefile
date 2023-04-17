@@ -22,7 +22,9 @@ SRC			=	canvas/canvas_event.c		\
 				panel/panel_select.c		\
 				panel/panel_tests.c			\
 				panel/panel.c				\
-				panel/rectransform.c		\
+				panel/rtrans_bar_factory.c	\
+				panel/rtrans_factory.c		\
+				panel/rtrans_update.c		\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\

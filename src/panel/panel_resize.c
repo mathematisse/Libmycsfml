@@ -49,8 +49,8 @@ void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size)
 {
     if (!panel)
         return;
-    panel->pos = pos_transform_rect(panel->rect, pos, size);
-    panel->size = size_transform_rect(panel->rect, size);
+    panel->pos = rtrans_pos_update(panel->rect, pos, size);
+    panel->size = rtrans_size_update(panel->rect, size);
     for (int i = 0; i < panel->childs_count; i++)
         panel_resize(panel->childs[i], &(panel->pos), &(panel->size));
     panel_rect_set(panel);

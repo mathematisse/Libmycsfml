@@ -20,9 +20,8 @@ panel_t *panel_create(rectransform_t *rect, ptype_t type, void *data)
     panel->state = PANEL_STATE_ACTIVE;
     panel->data = data;
     panel->rect = rect;
-    panel->pos =
-        pos_transform_rect(rect, &(sfVector2f){0, 0}, &(sfVector2f){0, 0});
-    panel->size = size_transform_rect(rect, &(sfVector2f){0, 0});
+    panel->pos = (sfVector2f){0, 0};
+    panel->size = (sfVector2f){0, 0};
     panel->childs = NULL;
     panel->childs_count = 0;
     return panel;

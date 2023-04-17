@@ -8,27 +8,7 @@
 #include <stdlib.h>
 #include "rectransform.h"
 
-rectransform_t *rectransform_create(void)
-{
-    rectransform_t *rect = malloc(sizeof(rectransform_t));
-
-    if (!rect)
-        return NULL;
-    rect->pos = (sfVector2f){0, 0};
-    rect->size = (sfVector2f){0, 0};
-    rect->xanchor = ANCHOR_NONE;
-    rect->yanchor = ANCHOR_NONE;
-    rect->resize = RESIZE_NONE;
-    return rect;
-}
-
-void rectransform_destroy(rectransform_t *rect)
-{
-    if (rect)
-        free(rect);
-}
-
-sfVector2f pos_transform_rect(
+sfVector2f rtrans_pos_update(
     rectransform_t *rect,
     sfVector2f *parentpos,
     sfVector2f *parentsize)
@@ -52,7 +32,7 @@ sfVector2f pos_transform_rect(
     return pos;
 }
 
-sfVector2f size_transform_rect(rectransform_t *rect, sfVector2f *psize)
+sfVector2f rtrans_size_update(rectransform_t *rect, sfVector2f *psize)
 {
     sfVector2f size;
 
