@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "panel.h"
+#include "ui_panels/flex.h"
 
 static void sprite_rect_set(panel_t *panel)
 {
@@ -54,4 +55,6 @@ void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size)
     for (int i = 0; i < panel->childs_count; i++)
         panel_resize(panel->childs[i], &(panel->pos), &(panel->size));
     panel_rect_set(panel);
+    if (panel->type == PANEL_TYPE_FLEX)
+        panel_flex_repos(panel);
 }

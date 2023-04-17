@@ -36,6 +36,20 @@ rectransform_t *rtrans_create_centered(sfVector2f pos, sfVector2f size)
     return rect;
 }
 
+rectransform_t *rtrans_create_flexelem(sfVector2f pos, sfVector2f size)
+{
+    rectransform_t *rect = malloc(sizeof(rectransform_t));
+
+    if (!rect)
+        return NULL;
+    rect->pos = pos;
+    rect->size = size;
+    rect->xanchor = ANCHOR_START;
+    rect->yanchor = ANCHOR_START;
+    rect->resize = RESIZE_NONE;
+    return rect;
+}
+
 rectransform_t *rtrans_create_resize(sfVector2f pos, sfVector2f size)
 {
     rectransform_t *rect = malloc(sizeof(rectransform_t));

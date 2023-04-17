@@ -33,6 +33,7 @@ typedef struct rectransform_s {
 
 rectransform_t *rtrans_create_free(sfVector2f pos, sfVector2f size);
 rectransform_t *rtrans_create_centered(sfVector2f pos, sfVector2f size);
+rectransform_t *rtrans_create_flexelem(sfVector2f pos, sfVector2f size);
 rectransform_t *rtrans_create_resize(sfVector2f pos, sfVector2f size);
 rectransform_t *rtrans_create_barup(sfVector2f pos, sfVector2f size);
 rectransform_t *rtrans_create_bardown(sfVector2f pos, sfVector2f size);
