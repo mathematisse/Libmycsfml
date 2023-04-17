@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** Header for empty panels
@@ -7,7 +7,7 @@
 
 #ifndef PANEL_EMPTY_H
     #define PANEL_EMPTY_H
-    #include "panel/panel.h"
+    #include "panel.h"
 
 typedef struct panel_empty_s {
     sfColor color;

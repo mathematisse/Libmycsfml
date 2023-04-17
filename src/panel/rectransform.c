@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** General foos for rectransform
 */
 
 #include <stdlib.h>
-#include "panel/rectransform.h"
+#include "rectransform.h"
 
 rectransform_t *rectransform_create(void)
 {

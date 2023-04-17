@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** General foos for panel
+** Resizing foos for panel
 */
 
 #include <stdio.h>
-#include "panel/panel.h"
+#include "panel.h"
 
 static void sprite_rect_set(panel_t *panel)
 {
@@ -33,6 +33,8 @@ static void panel_rect_set(panel_t *panel)
         return;
     if (panel->shape) {
         sfRectangleShape_setSize(panel->shape, panel->size);
+        sfRectangleShape_setOrigin(panel->shape,
+            (sfVector2f){panel->size.x / 2, panel->size.y / 2});
         sfRectangleShape_setPosition(panel->shape, panel->pos);
     }
     if (panel->sprite) {

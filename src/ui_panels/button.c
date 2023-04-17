@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** General foos for button panels
@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "ui_panels/button.h"
 #include "theme.h"
+#include "tools.h"
 
 static panel_button_t *button_create(void)
 {
@@ -40,15 +41,8 @@ panel_t *panel_text_button_create(
     panel = panel_create(rect, type, bpanel);
     if (!panel)
         return NULL;
-    panel->text = sfText_create();
-    if (str && font) {
-        sfText_setFont(panel->text, font);
-        sfText_setString(panel->text, str);
-        sfText_setCharacterSize(panel->text, 20);
-    }
-    panel->shape = sfRectangleShape_create();
-    if (panel->shape)
-        sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
+    init_text(&(panel->text), font, str);
+    init_rshape(&(panel->shape), BUTTON_BASE);
     bpanel->text = str;
     return panel;
 
@@ -67,14 +61,8 @@ panel_t *panel_image_button_create(
     panel = panel_create(rect, type, bpanel);
     if (!panel)
         return NULL;
-    if (texture){
-        panel->sprite = sfSprite_create();
-        sfSprite_setTexture(panel->sprite, texture, sfTrue);
-        sfSprite_setScale(panel->sprite, (sfVector2f){0.3, 0.3});
-    }
-    panel->shape = sfRectangleShape_create();
-    if (panel->shape)
-        sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
+    init_sprite(&(panel->sprite), texture, rect);
+    init_rshape(&(panel->shape), BUTTON_BASE);
     bpanel->texture = texture;
     return panel;
 }

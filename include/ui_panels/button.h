@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** Header for button panels
@@ -7,13 +7,14 @@
 
 #ifndef BUTTON_H
     #define BUTTON_H
-    #include "panel/panel.h"
+    #include "panel.h"
 
 typedef void (*button_foo_t)(void *);
 
 typedef struct panel_button_s {
     const char *text;
     sfTexture *texture;
+    void *trgt;
     void (*on_enter)(void *);
     void (*on_exit)(void *);
     void (*on_press)(void *);
