@@ -16,7 +16,11 @@ typedef struct canvas_s {
     panel_t *selected;
 } canvas_t;
 
-canvas_t *create_canvas(panel_t **panels);
-void destroy_canvas(canvas_t *canvas);
-
+canvas_t *canvas_create(panel_t **panels);
+void canvas_destroy(canvas_t *canvas);
+void canvas_resize(canvas_t *c, sfVector2f *pos, sfVector2f *size);
+void canvas_hover(canvas_t *c, sfVector2i *pos);
+void canvas_pressed(canvas_t *c);
+void canvas_released(canvas_t *c);
+void canvas_draw(sfRenderWindow *window, canvas_t *canvas);
 #endif /* CANVAS_H */
