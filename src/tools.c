@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** Main function for my_paint
+** Generic tools
 */
 
 #include <stdlib.h>

@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** extra functions for the csfml program
+** Event foos for canvases
 */
 
 #include "canvas.h"
-#include "panel/panel_event.h"
+#include "panel.h"
 
 void canvas_resize(canvas_t *c, sfVector2f *pos, sfVector2f *size)
 {

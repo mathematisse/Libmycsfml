@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** functions for csfml program start
@@ -7,21 +7,6 @@
 
 #include <stdlib.h>
 #include "program.h"
-
-program_t *create_program(program_maker_t maker)
-{
-    program_t *prog = malloc(sizeof(program_t));
-
-    if (!prog)
-        return NULL;
-    prog->pstate = Created;
-    prog->window = NULL;
-    prog->cursor = cursor_create();
-    prog->scenes = maker();
-    prog->current_scene = -1;
-    prog->font = sfFont_createFromFile("ressources/Lato-Bold.ttf");
-    return prog;
-}
 
 int start_first_scene(program_t *p)
 {

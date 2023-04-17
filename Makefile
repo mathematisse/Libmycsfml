@@ -1,5 +1,5 @@
 ##
-## PERSONNAL PROJECT, 2023
+## EPITECH PROJECT, 2023
 ## Libmycsfml
 ## File description:
 ## Makefile for the compilation of the lib
@@ -7,29 +7,30 @@
 
 NAME		=	libmycsfml.a
 
-SRC			=	canvas_factory.c		\
-				canvas_event.c			\
-				canvas_update.c			\
-				cursor.c				\
-				scene_event.c			\
-				scene_update.c			\
-				scene_factory.c			\
-				tools.c					\
-				panel/panel_factory.c	\
-				panel/panel_hover.c		\
-				panel/panel_resize.c	\
-				panel/panel_select.c	\
-				panel/panel_tests.c		\
-				panel/panel.c			\
-				panel/rectransform.c	\
-				program/program_start.c	\
-				program/program_event.c	\
-				program/program.c		\
-				ui_panels/button.c		\
-				ui_panels/dropdown.c	\
-				ui_panels/input.c		\
-				ui_panels/panel_empty.c	\
-				ui_panels/text.c		\
+SRC			=	canvas/canvas_event.c		\
+				canvas/canvas_factory.c		\
+				canvas/canvas_update.c		\
+				cursor.c					\
+				scene/scene_event.c			\
+				scene/scene_factory.c		\
+				scene/scene_update.c		\
+				tools.c						\
+				panel/panel_factory.c		\
+				panel/panel_hover.c			\
+				panel/panel_resize.c		\
+				panel/panel_select.c		\
+				panel/panel_tests.c			\
+				panel/panel.c				\
+				panel/rectransform.c		\
+				program/program_event.c		\
+				program/program_execute.c	\
+				program/program_factory.c	\
+				program/program_start.c		\
+				ui_panels/button.c			\
+				ui_panels/dropdown.c		\
+				ui_panels/input.c			\
+				ui_panels/empty.c			\
+				ui_panels/text.c
 
 CFLAGS		=	-g -W -Wall -Wextra -Wpedantic -Werror -I./include
 

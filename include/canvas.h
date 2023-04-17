@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** Header for canvas struct
@@ -7,7 +7,7 @@
 
 #ifndef CANVAS_H
     #define CANVAS_H
-    #include "panel/panel.h"
+    #include "panel.h"
 
 typedef struct canvas_s {
     panel_t **panels;

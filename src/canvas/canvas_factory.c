@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** Factory functions for canvas struct
+** Factory foos for canvases
 */
 
 #include "stdlib.h"

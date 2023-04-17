@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** General foos for panels
+** Factory foos for panels
 */
 
 #include <stdlib.h>
-#include "panel/panel.h"
+#include "panel.h"
 
 panel_t *panel_create(rectransform_t *rect, ptype_t type, void *data)
 {

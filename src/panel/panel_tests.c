@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** Main function for my_paint
+** Testing foo for panels
 */
 
 #include <stdlib.h>
-#include "panel/panel.h"
+#include "panel.h"
 
 int is_interactable(ptype_t t)
 {

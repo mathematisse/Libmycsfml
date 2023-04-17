@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** Header for program object
@@ -28,6 +28,7 @@ typedef struct program_s {
 } program_t;
 
 program_t *create_program(program_maker_t maker);
+void destroy_program(program_t *p);
 int start_program(program_t *p);
 int execute_program(program_maker_t maker);
 int loop_events(program_t *p);

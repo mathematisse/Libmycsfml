@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2022
+** EPITECH PROJECT, 2022
 ** Libmycsfml
 ** File description:
-** Header for all defined colors
+** Header for theme
 */
 
 #ifndef THEME_H

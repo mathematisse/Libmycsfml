@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** General foos for panels
+** Selcting foos for panels
 */
 
 #include "ui_panels/button.h"

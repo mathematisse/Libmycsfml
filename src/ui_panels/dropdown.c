@@ -1,11 +1,11 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** Foos for dropdowns
 */
 
-#include "panel/panel.h"
+#include "panel.h"
 
 void dds_select(void *data)
 {

@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** extra functions for the csfml program
+** Foos for program events
 */
 
 #include "program.h"

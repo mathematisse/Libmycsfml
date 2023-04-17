@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** functions for csfml program
@@ -8,20 +8,6 @@
 #include <stdlib.h>
 #include "program.h"
 #include "theme.h"
-
-static void destroy_program(program_t *p)
-{
-    if (!p)
-        return;
-    if (p->window)
-        sfRenderWindow_destroy(p->window);
-    if (p->cursor)
-        cursor_destroy(p->cursor);
-    if (p->scenes)
-        scenes_destroy(p->scenes);
-    sfFont_destroy(p->font);
-    free(p);
-}
 
 static void loop_program(program_t *p)
 {

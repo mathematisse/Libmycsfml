@@ -1,5 +1,5 @@
 /*
-** PERSONNAL PROJECT, 2022
+** EPITECH PROJECT, 2022
 ** Libmycsfml
 ** File description:
 ** Header for input panels
@@ -8,7 +8,6 @@
 #ifndef INPUT_H
     #define INPUT_H
     #include <SFML/Graphics.h>
-    // #include "panelpanel.h"
 
 typedef enum entry_type_s {
     EntryTypeFile,

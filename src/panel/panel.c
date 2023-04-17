@@ -1,12 +1,12 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** General foos for panels
 */
 
 #include <stdlib.h>
-#include "panel/panel.h"
+#include "panel.h"
 
 void panel_draw(sfRenderWindow *window, panel_t *panel)
 {

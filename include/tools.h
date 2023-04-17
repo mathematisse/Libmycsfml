@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2022
+** EPITECH PROJECT, 2022
 ** Libmycsfml
 ** File description:
-** Header for board panels
+** Header for tools
 */
 
 #ifndef TOOLS_H

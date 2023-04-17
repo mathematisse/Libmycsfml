@@ -1,8 +1,8 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
-** General foos for mouse event management
+** General foos for cursor
 */
 
 #include <stdlib.h>
