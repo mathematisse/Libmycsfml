@@ -14,7 +14,7 @@ panel_t *msg(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){200, 100};
-    mrect->pos = (sfVector2f){-300, 75};
+    mrect->pos = (sfVector2f){-150, 112.5};
     mrect->xanchor = ANCHOR_END;
     mrect->yanchor = ANCHOR_START;
     mrect->resize = RESIZE_NONE;
@@ -27,8 +27,8 @@ panel_t *toaster(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){300, 100};
-    mrect->pos = (sfVector2f){300, -100};
-    mrect->xanchor = ANCHOR_START;
+    mrect->pos = (sfVector2f){0, -100};
+    mrect->xanchor = ANCHOR_MIDDLE;
     mrect->yanchor = ANCHOR_END;
     mrect->resize = RESIZE_X;
     panel_t *main = panel_empty_create(mrect, sfGreen);
@@ -40,7 +40,7 @@ panel_t *centerdraw(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){300, 300};
-    mrect->pos = (sfVector2f){-150, -150};
+    mrect->pos = (sfVector2f){0, 0};
     mrect->xanchor = ANCHOR_MIDDLE;
     mrect->yanchor = ANCHOR_MIDDLE;
     mrect->resize = RESIZE_NONE;
@@ -53,9 +53,9 @@ panel_t *center_panel(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){150, 150};
-    mrect->pos = (sfVector2f){100, 100};
-    mrect->xanchor = ANCHOR_START;
-    mrect->yanchor = ANCHOR_START;
+    mrect->pos = (sfVector2f){0, 0};
+    mrect->xanchor = ANCHOR_MIDDLE;
+    mrect->yanchor = ANCHOR_MIDDLE;
     mrect->resize = RESIZE_XY;
     panel_t *main = panel_empty_create(mrect, sfYellow);
     main->state = PANEL_STATE_ACTIVE;
@@ -66,9 +66,9 @@ panel_t *left_bar(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){50, 0};
-    mrect->pos = (sfVector2f){0, 0};
+    mrect->pos = (sfVector2f){25, 0};
     mrect->xanchor = ANCHOR_START;
-    mrect->yanchor = ANCHOR_START;
+    mrect->yanchor = ANCHOR_MIDDLE;
     mrect->resize = RESIZE_Y;
     panel_t *main = panel_empty_create(mrect, sfBlue);
     main->state = PANEL_STATE_ACTIVE;
@@ -79,8 +79,8 @@ panel_t * top_bar(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){0, 50};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_START;
+    mrect->pos = (sfVector2f){0, 25};
+    mrect->xanchor = ANCHOR_MIDDLE;
     mrect->yanchor = ANCHOR_START;
     mrect->resize = RESIZE_X;
     panel_t *main = panel_empty_create(mrect, sfRed);
@@ -88,7 +88,7 @@ panel_t * top_bar(void)
     return main;
 }
 
-panel_t *demopanel(void)
+panel_t *demogame(void)
 {
     rectransform_t *mrect = rectransform_create();
     mrect->size = (sfVector2f){0, 0};
