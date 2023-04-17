@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "theme.h"
+#include "ui_panels/flex.h"
 #include "ui_panels/empty.h"
 #include "tools.h"
 
@@ -20,45 +21,62 @@ panel_t *msg(void)
     return main;
 }
 
+panel_t *quick_access(void)
+{
+    panel_t *fmain = make_flex((sfVector2i){3, 1}, (sfVector2f){110, 110});
+    fmain->rect->pos.y = -120;
+    fmain->rect->yanchor = ANCHOR_END;
+    panel_add_childs(fmain, 3,
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfRed),
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfGreen),
+        panel_empty_create(rtrans_create_flexelem((sfVector2f){0, 0}, (sfVector2f){100, 100}), sfBlue));
+    init_rshape(&(fmain->shape), sfWhite);
+    return fmain;
+}
+
 panel_t *toaster(void)
 {
     rectransform_t *mrect = rtrans_create_bardown(
         (sfVector2f){0, -100}, (sfVector2f){300, 100});
     panel_t *main = panel_empty_create(mrect, sfGreen);
+    panel_add_childs(main, 1, quick_access());
     return main;
 }
 
 panel_t *centerdraw(void)
 {
-    rectransform_t *mrect = rtrans_create_centered(
-        (sfVector2f){0, 0}, (sfVector2f){300, 300});
-    panel_t *main = panel_empty_create(mrect, sfWhite);
-
-    return main;
+    return panel_empty_create(
+        rtrans_create_centered(
+            (sfVector2f){0, 0},
+            (sfVector2f){300, 300}),
+        sfWhite);
 }
 
 panel_t *center_panel(void)
 {
-    rectransform_t *mrect = rtrans_create_resize(
-        (sfVector2f){0, 0}, (sfVector2f){150, 150});
-    panel_t *main = panel_empty_create(mrect, sfYellow);
-    return main;
+    return panel_empty_create(
+        rtrans_create_resize(
+            (sfVector2f){0, 0},
+            (sfVector2f){400, 400}),
+        sfYellow);
 }
 
-panel_t *left_bar(void)
+panel_t *left_bar(float width)
 {
-    rectransform_t *mrect = rtrans_create_barleft(
-        (sfVector2f){25, 0}, (sfVector2f){50, 0});
-    panel_t *main = panel_empty_create(mrect, sfBlue);
-    return main;
+    return panel_empty_create(
+        rtrans_create_barleft(
+            (sfVector2f){width / 2, 0},
+            (sfVector2f){width, 0}),
+        sfBlue);
 }
 
-panel_t * top_bar(void)
+panel_t * top_bar(float height)
 {
-    rectransform_t *mrect = rtrans_create_barup(
-        (sfVector2f){0, 25}, (sfVector2f){0, 50});
-    panel_t *main = panel_empty_create(mrect, sfRed);
-    return main;
+    return panel_empty_create(
+        rtrans_create_barup(
+            (sfVector2f){0, height / 2},
+            (sfVector2f){0, height}),
+        sfRed);
 }
 
 panel_t *demogame(void)
@@ -66,15 +84,12 @@ panel_t *demogame(void)
     rectransform_t *mrect =
         rtrans_create_resize((sfVector2f){0, 0}, (sfVector2f){0, 0});
     panel_t *main = panel_empty_create(mrect, sfBlack);
-    panel_t **childs = malloc(sizeof(panel_t *) * 7);
-    childs[0] = top_bar();
-    childs[1] = left_bar();
-    childs[2] = toaster();
-    childs[3] = msg();
-    childs[4] = centerdraw();
-    childs[5] = center_panel();
-    childs[6] = NULL;
-    main->childs = childs;
-    main->childs_count = 6;
+    panel_add_childs(main, 6,
+        top_bar(100),
+        left_bar(200),
+        quick_access(),
+        msg(),
+        centerdraw(),
+        center_panel());
     return main;
 }

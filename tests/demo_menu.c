@@ -72,17 +72,15 @@ panel_t *create_name_input_label(sfFont *font)
 
 panel_t *menuflex(program_t *p)
 {
-    rectransform_t *mrect = rtrans_create_centered(
-        (sfVector2f){0, -300}, (sfVector2f){300, 600});
-    panel_t *pmain = panel_flex_create(mrect,
-        (sfVector2i){1, 4}, (sfVector2f){200, 120});
-    panel_add_childs(pmain, 4,
+    panel_t *fmain = make_flex((sfVector2i){1, 4}, (sfVector2f){300, 120});
+    panel_add_childs(fmain, 4,
         create_name_input_label(p->font),
         create_name_input(p->font),
         create_start_button(p),
         create_quit_button(p)
     );
-    return pmain;
+    init_rshape(&(fmain->shape), sfBlue);
+    return fmain;
 }
 
 panel_t *demomenu(program_t *p)
