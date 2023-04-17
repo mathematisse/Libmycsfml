@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "ui_panels/text.h"
+#include "tools.h"
 
 panel_t *text_create(sfFont *font, const char *str, rectransform_t *rect)
 {
@@ -26,13 +27,7 @@ panel_t *panel_text_create(rectransform_t *rect, sfFont *font, const char *str)
     if (!panel)
         return NULL;
     panel->shape = NULL;
-    panel->text = sfText_create();
-    if (panel->text && font && str) {
-        sfText_setFont(panel->text, font);
-        sfText_setString(panel->text, str);
-        sfText_setCharacterSize(panel->text, 16);
-        sfText_setColor(panel->text, sfWhite);
-    }
+    init_text(&panel->text, font, str);
     return panel;
 }
 

@@ -10,36 +10,18 @@
 #include "ui_panels/input.h"
 #include "tools.h"
 
-static void set_panel_to_input(panel_t *panel, sfFont *font)
-{
-    if (!panel)
-        return;
-    panel->shape = sfRectangleShape_create();
-    if (panel->shape) {
-        sfRectangleShape_setFillColor(panel->shape, sfWhite);
-        sfRectangleShape_setOutlineColor(panel->shape, sfBlack);
-        sfRectangleShape_setOutlineThickness(panel->shape, 3);
-    }
-    panel->text = sfText_create();
-    if (panel->text && font) {
-        sfText_setFont(panel->text, font);
-        sfText_setCharacterSize(panel->text, 16);
-        sfText_setColor(panel->text, sfBlack);
-        sfText_setString(panel->text, "10");
-    }
-}
-
-static void set_ipanel_to_input(panel_input_t *ipanel)
+static void init_ipanel(panel_input_t *ipanel, entry_type_t type)
 {
     if (!ipanel)
         return;
-    ipanel->left = ipanel->max_size - 2;
-    ipanel->text = malloc(sizeof(char) * (ipanel->max_size + 1));
-    if (!ipanel->text)
-        return;
-    ipanel->text[0] = '1';
-    ipanel->text[1] = '0';
-    for (int i = 2; i < ipanel->max_size; i++)
+    ipanel->type = type;
+    switch (type) {
+        case EntryTypeNumber: ipanel->max_size = 4; break;
+        case EntryTypeLetter: ipanel->max_size = 10; break;
+    }
+    ipanel->left = ipanel->max_size;
+    ipanel->text = str("0", ipanel->max_size);
+    for (int i = 0; i < ipanel->max_size; i++)
         ipanel->text[i] = '\0';
 }
 
@@ -50,25 +32,24 @@ panel_t *panel_input_create(
 {
     panel_input_t *ipanel = malloc(sizeof(panel_input_t));
     panel_t *panel = NULL;
+    sfFloatRect trect;
 
     if (!ipanel)
         return NULL;
     panel = panel_create(rect, PANEL_TYPE_INPUT, ipanel);
     if (!panel)
         return NULL;
-    set_panel_to_input(panel, font);
-    ipanel->type = type;
-    ipanel->max_size = type == EntryTypeNumber ? 4 : 0;
-    set_ipanel_to_input(ipanel);
+    init_rshape(&panel->shape, sfWhite);
+    init_text(&panel->text, font, "");
+    trect = sfText_getLocalBounds(panel->text);
+    sfText_setOrigin(panel->text, (sfVector2f){
+        trect.left + trect.width / 2.0f, panel->rect->size.y / 7.0f});
+    init_ipanel(ipanel, type);
     return panel;
 }
 
-void on_text_entered(sfTextEvent t, panel_t *panel)
+void on_num_ipanel_entry(sfTextEvent t, panel_input_t *input)
 {
-    panel_input_t *input = (panel_input_t *)panel->data;
-
-    if (input->type != EntryTypeNumber)
-        return;
     if (t.unicode >= '0' && t.unicode <= '9' && input->left > 0) {
         input->text[input->max_size - input->left] = t.unicode;
         input->left--;
@@ -76,6 +57,32 @@ void on_text_entered(sfTextEvent t, panel_t *panel)
         input->left++;
         input->text[input->max_size - input->left] = '\0';
     }
-    sfText_setString(panel->text, input->text);
     *(input->trgt_int) = fast_atoi(input->text);
+}
+
+void on_text_ipanel_entry(sfTextEvent t, panel_input_t *input)
+{
+    if (t.unicode >= 'a' && t.unicode <= 'z' && input->left > 0) {
+        input->text[input->max_size - input->left] = t.unicode;
+        input->left--;
+    } else if (t.unicode == '\b' && input->left < 10) {
+        input->left++;
+        input->text[input->max_size - input->left] = '\0';
+    }
+    *(input->trgt_str) = input->text;
+}
+
+void on_text_entered(sfTextEvent t, panel_t *panel)
+{
+    panel_input_t *input = (panel_input_t *)panel->data;
+    sfFloatRect trect;
+    switch (input->type) {
+        case EntryTypeNumber: on_num_ipanel_entry(t, input); break;
+        case EntryTypeLetter: on_text_ipanel_entry(t, input); break;
+        default: break;
+    }
+    sfText_setString(panel->text, input->text);
+    trect = sfText_getLocalBounds(panel->text);
+    sfText_setOrigin(panel->text, (sfVector2f){
+        trect.left + trect.width / 2.0f, panel->rect->size.y / 7.0f});
 }
