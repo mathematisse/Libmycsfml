@@ -10,6 +10,6 @@
 
 int is_interactable(ptype_t t);
 int fast_atoi(const char *str);
-void save_as_png(sfTexture* texture, const char* path);
 char *str(const char *str, int i);
+void init_text(sfText **text, sfFont *font, const char *str);
 #endif /* TOOLS_H */

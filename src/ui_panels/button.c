@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "ui_panels/button.h"
 #include "theme.h"
+#include "tools.h"
 
 static panel_button_t *button_create(void)
 {
@@ -40,13 +41,10 @@ panel_t *panel_text_button_create(
     panel = panel_create(rect, type, bpanel);
     if (!panel)
         return NULL;
-    panel->text = sfText_create();
-    if (str && font) {
-        sfText_setFont(panel->text, font);
-        sfText_setString(panel->text, str);
-        sfText_setCharacterSize(panel->text, 20);
-    }
+    init_text(&(panel->text), font, str);
     panel->shape = sfRectangleShape_create();
+    sfRectangleShape_setOrigin(panel->shape,
+        (sfVector2f){rect->size.x / 2, rect->size.y / 2});
     if (panel->shape)
         sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
     bpanel->text = str;
