@@ -5,6 +5,8 @@
 ** Demo content
 */
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "content.h"

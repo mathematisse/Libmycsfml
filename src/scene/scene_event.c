@@ -56,12 +56,14 @@ void scene_key_pressed(scene_t *s, sfKeyEvent e)
         s->content->state = CONTENT_STATE_PAUSE;
         if (s->content->on_pause)
             s->content->on_pause(s->content);
-        s->canvas->panels[0]->childs[0]->state =
-            PANEL_STATE_ACTIVE == s->canvas->panels[0]->childs[0]->state
-            ? PANEL_STATE_INACTIVE : PANEL_STATE_ACTIVE;
-        s->canvas->panels[0]->childs[1]->state =
-            PANEL_STATE_INACTIVE == s->canvas->panels[0]->childs[1]->state
-            ? PANEL_STATE_ACTIVE : PANEL_STATE_INACTIVE;
+        s->canvas->panels[0]->childs[0]->state = s->canvas->panels[0]->childs[1]->state == PANEL_STATE_ACTIVE ? PANEL_STATE_ACTIVE : PANEL_STATE_INACTIVE;
+        s->canvas->panels[0]->childs[1]->state = s->canvas->panels[0]->childs[1]->state == PANEL_STATE_ACTIVE ? PANEL_STATE_INACTIVE : PANEL_STATE_ACTIVE;
+        s->canvas->panels[0]->childs[2]->state = PANEL_STATE_INACTIVE;
+        s->canvas->panels[0]->childs[3]->state = PANEL_STATE_INACTIVE;
+        s->canvas->panels[0]->childs[4]->state = PANEL_STATE_INACTIVE;
+        s->canvas->panels[0]->childs[5]->state = PANEL_STATE_INACTIVE;
+        if (s->canvas->panels[0]->childs[0]->state == PANEL_STATE_ACTIVE)
+            s->content->state = CONTENT_STATE_PLAY;
         return;
     }
     if (s->content && s->content->on_key_press)

@@ -5,6 +5,8 @@
 ** Creates the base panels for paint
 */
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #include <stdlib.h>
 #include "demo.h"
 #include "ui_panels/empty.h"
@@ -27,13 +29,15 @@ panel_t *minimap(void)
 
 panel_t *quick_access(void)
 {
-    panel_t *fmain = make_flex((sfVector2i){3, 1}, (sfVector2f){110, 110});
+    panel_t *fmain = make_flex((sfVector2i){8, 1}, (sfVector2f){110, 110});
+    panel_t **childs = malloc(sizeof(panel_t) * 8 + 1);
     fmain->rect->pos.y = -120;
     fmain->rect->yanchor = ANCHOR_END;
-    panel_add_childs(fmain, 3,
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), sfBlack),
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), sfBlack),
-        panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), sfBlack));
+    for (int i = 0; i < 8; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), sfBlack);
+    childs[8] = NULL;
+    fmain->childs = childs;
+    fmain->childs_count = 8;
     init_rshape(&(fmain->shape), sfWhite);
     return fmain;
 }
@@ -100,6 +104,7 @@ panel_t *invmenuflex(program_t *p)
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
+
 panel_t *statmenuflex(program_t *p)
 {
     panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
@@ -113,19 +118,41 @@ panel_t *statmenuflex(program_t *p)
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
+
+panel_t *make_label(sfFont *font, const char *str)
+{
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    return panel_text_create(rect, font, str);
+}
+
+panel_t *musicbar(program_t *p)
+{
+    panel_t *epanel = panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 50}), sfWhite);
+    return epanel;
+}
+
+panel_t *soundbar(program_t *p)
+{
+    panel_t *epanel = panel_empty_create(rtrans_create_flexelem( (sfVector2f){200, 50}), sfWhite);
+    return epanel;
+}
+
 panel_t *paramenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
-    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
-    for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), sfBlack);
-    childs[8 * 4] = NULL;
-    fmain->childs = childs;
-    fmain->childs_count = 8 * 4;
-    init_rshape(&(fmain->shape), sfWhite);
+    panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){210, 60});
+    panel_add_childs(fmain, 6,
+        make_label(p->font, "Music"),
+        musicbar(p),
+        make_label(p->font, "Sound"),
+        soundbar(p),
+        make_label(p->font, "Window Size"),
+        make_label(p->font, "Resolution")
+    );
+    init_rshape(&(fmain->shape), sfBlue);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
+
 panel_t *cmdmenuflex(program_t *p)
 {
     panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
@@ -139,6 +166,7 @@ panel_t *cmdmenuflex(program_t *p)
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
+
 panel_t *demogame(program_t *p)
 {
     rectransform_t *mrect = rtrans_create_resize();

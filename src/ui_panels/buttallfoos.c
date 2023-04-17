@@ -67,7 +67,8 @@ void load_content(void *data)
 
 void open_options(void *data)
 {
-    panel_t **panels = (panel_t **) data;
+    program_t *program = (program_t *) data;
+    panel_t **panels = program->scenes[program->current_scene]->canvas->panels[0]->childs;
 
     panels[1]->state = PANEL_STATE_INACTIVE;
     panels[4]->state = PANEL_STATE_ACTIVE;
