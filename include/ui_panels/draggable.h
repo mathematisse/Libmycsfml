@@ -10,15 +10,15 @@
     #include "panel.h"
 
 typedef struct panel_drag_s {
-    sfVector2f initpos;
     sfVector2f offset;
     sfFloatRect bounds;
+    panel_t *parent;
 } panel_drag_t;
 
-panel_t *make_drag(sfVector2f pos);
+panel_t *make_handle_drag(sfVector2f pos, panel_t *parent);
 
 panel_drag_t *drag_create(void);
-panel_t *panel_item_drag_create(rectransform_t *rect, ptype_t type);
+panel_t *panel_handle_drag_create(rectransform_t *rect, panel_t *parent);
 void panel_drag_destroy(panel_t *panel);
 
 void on_drag_move(panel_t *panel, sfVector2f newoffset);

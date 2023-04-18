@@ -38,7 +38,7 @@ panel_t *make_slider(sfVector2f pos)
 {
     rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
     panel_t *epanel = panel_none_create(rect);
-    panel_add_childs(epanel, 2, make_drag(pos),
+    panel_add_childs(epanel, 2, make_handle_drag(pos, epanel),
         panel_empty_create(
             rtrans_create_flexelem((sfVector2f){200, 10}), ITEM_BG));
     return epanel;

@@ -32,9 +32,7 @@ void canvas_hover(canvas_t *c, sfVector2i *pos)
         c->hovered = hovered;
     }
     if (c->pressed && c->pressed->type == PANEL_TYPE_DRAG) {
-        panel_drag_t *dpanel = (panel_drag_t *)(c->pressed->data);
-        on_drag_move(c->pressed, (sfVector2f){
-            pos->x - dpanel->initpos.x, pos->y - dpanel->initpos.y});
+        on_drag_move(c->pressed, (sfVector2f){pos->x, pos->y});
     }
 }
 
