@@ -5,7 +5,30 @@
 ** Foos for dropdowns
 */
 
-#include "panel.h"
+#include "program.h"
+#include "ui_panels/dropdown.h"
+#include "ui_panels/button.h"
+#include "ui_panels/flex.h"
+
+panel_t *make_dd(size_t count, sfVector2f size)
+{
+    panel_t *panel = make_flex((sfVector2i){1, count}, size);
+    panel->rect->xanchor = ANCHOR_START;
+    panel->rect->yanchor = ANCHOR_END;
+    panel->rect->pos.y = size.y;
+    panel->state = PANEL_STATE_INACTIVE;
+    return panel;
+}
+
+panel_t *make_ddbutt(sfFont *font, const char *str)
+{
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    panel_t *panel = panel_text_button_create(
+        rect, str, font, PTYPE_DDBUTT);
+    butt_set_foos(panel, dds_select, dds_unselect);
+    ((panel_button_t *)(panel->data))->trgt = panel;
+    return panel;
+}
 
 void dds_select(void *data)
 {
