@@ -21,4 +21,6 @@ panel_drag_t *drag_create(void);
 panel_t *panel_item_drag_create(rectransform_t *rect, ptype_t type);
 void panel_drag_destroy(panel_t *panel);
 
+void on_drag_move(panel_t *panel, sfVector2f newoffset);
+
 #endif /* DRAGGABLE_H */

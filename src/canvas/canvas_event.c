@@ -33,7 +33,8 @@ void canvas_hover(canvas_t *c, sfVector2i *pos)
     }
     if (c->pressed && c->pressed->type == PANEL_TYPE_DRAG) {
         panel_drag_t *dpanel = (panel_drag_t *)(c->pressed->data);
-        on_drag_move(c->pressed, (sfVector2f){pos->x - dpanel->initpos.x, pos->y - dpanel->initpos.y});
+        on_drag_move(c->pressed, (sfVector2f){
+            pos->x - dpanel->initpos.x, pos->y - dpanel->initpos.y});
     }
 }
 
@@ -49,6 +50,9 @@ void canvas_pressed(canvas_t *c, sfMouseButtonEvent e)
 void canvas_released(canvas_t *c, sfMouseButtonEvent e)
 {
     canvas_hover(c, &(sfVector2i){e.x, e.y});
+    if (c->selected && c->pressed != c->selected
+        && c->selected->type == PTYPE_DDBUTT)
+        on_panel_unselect(c->selected);
     if (c->pressed != c->selected)
         on_panel_released(c->pressed);
     if (c->pressed == c->hovered && c->pressed != c->selected) {

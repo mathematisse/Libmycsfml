@@ -15,18 +15,12 @@
 panel_t *make_drag(sfVector2f pos)
 {
     sfVector2f size = {15, 40};
-    rectransform_t *sb_rect = rtrans_create_free(pos, size);
+    rectransform_t *sb_rect = rtrans_create_centered(pos, size);
+    sb_rect->xanchor = ANCHOR_START;
+    sb_rect->yanchor = ANCHOR_START;
     panel_t *drag = panel_item_drag_create(sb_rect, PANEL_TYPE_DRAG);
 
     return drag;
-}
-
-static void clamp(float *trgt, float min, float max)
-{
-    if (*trgt < min)
-        *trgt = min;
-    if (*trgt > max)
-        *trgt = max;
 }
 
 void on_drag_move(panel_t *panel, sfVector2f newoffset)
@@ -39,9 +33,13 @@ void on_drag_move(panel_t *panel, sfVector2f newoffset)
     if (!dpanel)
         return;
     dpanel->offset = newoffset;
-    clamp(&(dpanel->offset.x), dpanel->bounds.left, dpanel->bounds.left + dpanel->bounds.width);
-    clamp(&(dpanel->offset.y), dpanel->bounds.top, dpanel->bounds.top + dpanel->bounds.height);
-    panel->rect->pos = (sfVector2f){dpanel->offset.x + dpanel->initpos.x, dpanel->offset.y + dpanel->initpos.y};
+    clamp(&(dpanel->offset.x), dpanel->bounds.left,
+        dpanel->bounds.left + dpanel->bounds.width);
+    clamp(&(dpanel->offset.y), dpanel->bounds.top,
+        dpanel->bounds.top + dpanel->bounds.height);
+    panel->rect->pos = (sfVector2f){
+        dpanel->offset.x + dpanel->initpos.x,
+        dpanel->offset.y + dpanel->initpos.y};
     panel_resize(panel, &(sfVector2f){0, 0}, &(sfVector2f){1920, 1080});
 }
 
@@ -53,6 +51,7 @@ panel_drag_t *drag_create(void)
         return NULL;
     dpanel->offset = (sfVector2f){0, 0};
     dpanel->bounds = (sfFloatRect){0, 0, 0, 0};
+    dpanel->initpos = (sfVector2f){0, 0};
     return dpanel;
 }
 
@@ -68,9 +67,9 @@ panel_t *panel_item_drag_create(
     panel = panel_create(rect, type, bpanel);
     if (!panel)
         return NULL;
-    init_rshape(&(panel->shape), sfRed);
+    init_rshape(&(panel->shape), HANDLES);
     bpanel->initpos = rect->pos;
-    bpanel->bounds = (sfFloatRect){-90, 0, 180, 0};
+    bpanel->bounds = (sfFloatRect){-100, 0, 200, 0};
     return panel;
 }
 

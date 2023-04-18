@@ -21,11 +21,11 @@ void on_panel_select(panel_t *panel)
     if (panel->type == PTYPE_DDBUTT) {
         panel_button_t *bpanel = (panel_button_t *)panel->data;
         if (bpanel->on_select)
-            bpanel->on_select(panel);
+            bpanel->on_select(bpanel->trgt);
     }
     if (panel->type == PTYPE_EVBUTT) {
         panel_button_t *bpanel = (panel_button_t *)panel->data;
-        if (bpanel->on_select)
+        if (bpanel && bpanel->on_select)
             bpanel->on_select(bpanel->trgt);
     }
 }

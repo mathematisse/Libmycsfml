@@ -29,3 +29,11 @@ char *str(const char *str, int i)
     new[j] = '\0';
     return new;
 }
+
+void clamp(float *trgt, float min, float max)
+{
+    if (*trgt < min)
+        *trgt = min;
+    if (*trgt > max)
+        *trgt = max;
+}
