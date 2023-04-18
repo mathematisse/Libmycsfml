@@ -33,12 +33,12 @@ void demo_content_on_leave(void *content)
 
 void demo_content_on_press(void *content, sfMouseButtonEvent event)
 {
-    printf("Demo content on press called\n");
+    printf("Content click press on %d\n", event.button);
 }
 
 void demo_content_on_release(void *content, sfMouseButtonEvent event)
 {
-    printf("Demo content on release called\n");
+    printf("Content click release on %d\n", event.button);
 }
 
 void demo_content_on_select(void *content)
@@ -53,17 +53,18 @@ void demo_content_on_deselect(void *content)
 
 void demo_content_on_hover(void *content, sfVector2i *mouse)
 {
-    printf("Demo content on hover called\n");
+    write(1,".",1);
+    //printf("Content hover at %d, %d\n", mouse->x, mouse->y);
 }
 
 void demo_content_on_key_press(void *content, sfKeyEvent event)
 {
-    printf("Demo content on key press called\n");
+    printf("Content key press of %d\n", event.code);
 }
 
 void demo_content_on_key_release(void *content, sfKeyEvent event)
 {
-    printf("Demo content on key release called\n");
+    printf("Content key release of %d\n", event.code);
 }
 
 void demo_content_on_start(void *content)
@@ -86,15 +87,38 @@ void demo_content_on_stop(void *content)
     printf("Demo content on stop called\n");
 }
 
+void initialie_content(content_t *content)
+{
+    content->content = NULL;
+    content->maker = NULL;
+    content->destroyer = NULL;
+    content->drawer = NULL;
+    content->looper = NULL;
+    content->eventer = NULL;
+    content->on_enter = NULL;
+    content->on_leave = NULL;
+    content->on_press = NULL;
+    content->on_release = NULL;
+    content->on_select = NULL;
+    content->on_deselect = NULL;
+    content->on_hover = NULL;
+    content->on_key_press = NULL;
+    content->on_key_release = NULL;
+    content->on_start = NULL;
+    content->on_pause = NULL;
+    content->on_resume = NULL;
+    content->on_stop = NULL;
+}
+
 content_t *demo_content_maker(void)
 {
     content_t *content = malloc(sizeof(content_t));
 
-    content->content = NULL;
+    if (!content)
+        return NULL;
+    initialie_content(content);
     content->maker = demo_content_maker;
     content->destroyer = demo_content_destroyer;
-    content->drawer = NULL;
-    content->looper = NULL;
     content->eventer = demo_content_eventer;
     content->on_enter = demo_content_on_enter;
     content->on_leave = demo_content_on_leave;
