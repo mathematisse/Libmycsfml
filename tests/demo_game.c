@@ -17,6 +17,8 @@
 #include "tools.h"
 #include "ui_panels/buttallfoos.h"
 #include "ui_panels/draggable.h"
+#include "theme.h"
+#include "ui_panels/options.h"
 
 
 panel_t *minimap(void)
@@ -25,7 +27,7 @@ panel_t *minimap(void)
         (sfVector2f){-200, 200}, (sfVector2f){200, 200});
     mrect->xanchor = ANCHOR_END;
     mrect->yanchor = ANCHOR_START;
-    panel_t *main = panel_empty_create(mrect, sfBlack);
+    panel_t *main = panel_empty_create(mrect, ITEM_BG);
     return main;
 }
 
@@ -36,11 +38,11 @@ panel_t *quick_access(void)
     fmain->rect->pos.y = -120;
     fmain->rect->yanchor = ANCHOR_END;
     for (int i = 0; i < 8; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), sfBlack);
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), ITEM_BG);
     childs[8] = NULL;
     fmain->childs = childs;
     fmain->childs_count = 8;
-    init_rshape(&(fmain->shape), sfWhite);
+    init_rshape(&(fmain->shape), MENU);
     return fmain;
 }
 
@@ -57,16 +59,16 @@ panel_t *escmenuflex(program_t *p)
 {
     panel_t *fmain = make_flex((sfVector2i){1, 8}, (sfVector2f){210, 60});
     panel_add_childs(fmain, 8,
-        create_continue_button(p),
-        create_inventory_button(p),
-        create_stats_button(p),
-        create_save_button(p),
-        create_load_button(p),
-        create_options_button(p),
-        create_cmds_button(p),
-        create_gquit_button(p)
+        make_butt("Continue", p, continue_program, p->font),
+        make_butt("Inventory", p, open_inventory, p->font),
+        make_butt("Stats", p, open_stats, p->font),
+        make_butt("Save", p, save_content, p->font),
+        make_butt("Load", p, load_content, p->font),
+        make_butt("Options", p, open_options, p->font),
+        make_butt("Commands", p, open_cmds, p->font),
+        make_butt("Main Menu", p, quit_game, p->font)
     );
-    init_rshape(&(fmain->shape), sfBlue);
+    init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
@@ -98,11 +100,11 @@ panel_t *invmenuflex(program_t *p)
     panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){85, 85});
     panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
     for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), sfBlack);
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
     childs[8 * 4] = NULL;
     fmain->childs = childs;
     fmain->childs_count = 8 * 4;
-    init_rshape(&(fmain->shape), sfWhite);
+    init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
@@ -112,61 +114,26 @@ panel_t *statmenuflex(program_t *p)
     panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
     panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
     for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), sfBlack);
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
     childs[8 * 4] = NULL;
     fmain->childs = childs;
     fmain->childs_count = 8 * 4;
-    init_rshape(&(fmain->shape), sfWhite);
+    init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
 
-panel_t *make_label(sfFont *font, const char *str)
-{
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
-    return panel_text_create(rect, font, str);
-}
-
-panel_t *musicbar(program_t *p)
-{
-    panel_t *epanel = panel_none_create(rtrans_create_flexelem((sfVector2f){200, 50}));
-    panel_add_childs(epanel, 2, make_drag((sfVector2f){960, 450}), panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 10}), sfWhite));
-    return epanel;
-}
-
-panel_t *soundbar(panel_t *parent)
-{
-    panel_t *epanel = panel_none_create(rtrans_create_flexelem((sfVector2f){200, 50}));
-    panel_add_childs(epanel, 2, make_drag((sfVector2f){960, 570}), panel_empty_create(rtrans_create_flexelem((sfVector2f){200, 10}), sfWhite));
-    return epanel;
-}
-
-panel_t *paramenuflex(program_t *p)
-{
-    panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){210, 60});
-    panel_add_childs(fmain, 6,
-        make_label(p->font, "Music"),
-        musicbar(p),
-        make_label(p->font, "Sound"),
-        soundbar(fmain),
-        make_label(p->font, "Window Size"),
-        make_label(p->font, "Resolution")
-    );
-    init_rshape(&(fmain->shape), sfBlue);
-    fmain->state = PANEL_STATE_INACTIVE;
-    return fmain;
-}
 
 panel_t *cmdmenuflex(program_t *p)
 {
     panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
     panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
     for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), sfBlack);
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
     childs[8 * 4] = NULL;
     fmain->childs = childs;
     fmain->childs_count = 8 * 4;
-    init_rshape(&(fmain->shape), sfWhite);
+    init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
 }
