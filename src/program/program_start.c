@@ -18,6 +18,7 @@ int start_first_scene(program_t *p)
         settings.style, NULL);
     if (!(p->window))
         return EXIT_FAILURE;
+    p->fullscreen = 0;
     sfRenderWindow_setFramerateLimit(p->window, 60);
     resize_event(p, (sfSizeEvent)
         {.width = settings.size.x, .height = settings.size.y});
@@ -34,6 +35,14 @@ int start_scene(program_t *p, int i)
     if (!(p->window))
         return EXIT_FAILURE;
     sfRenderWindow_setTitle(p->window, settings.title);
+    if (p->fullscreen) {
+        canvas_resize(p->scenes[p->current_scene]->canvas,
+            &(sfVector2f){p->size.x / 2, p->size.y / 2},
+            &(sfVector2f){p->size.x, p->size.y});
+        resize_event(p, (sfSizeEvent)
+            {.width = p->size.x, .height = p->size.y});
+        return EXIT_SUCCESS;
+    }
     sfRenderWindow_setSize(p->window, settings.size);
     canvas_resize(p->scenes[p->current_scene]->canvas,
         &pos, &(sfVector2f){settings.size.x, settings.size.y});
