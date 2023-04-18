@@ -29,16 +29,19 @@ SRC			=	canvas/canvas_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
 				program/program_start.c		\
-				ui_panels/button.c			\
+				ui_panels/button_factory.c	\
+				ui_panels/button_utilities.c\
 				ui_panels/draggable.c		\
 				ui_panels/dropdown.c		\
 				ui_panels/input.c			\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
+				ui_panels/options.c			\
 				ui_panels/text.c			\
-				ui_panels/buttallfoos.c		\
-				ui_panels/make_buttallfoos.c
+				ui_panels/videofoos.c		\
+				ui_panels/butt_mfoos.c		\
+				ui_panels/butt_gfoos.c
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
