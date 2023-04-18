@@ -7,77 +7,67 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "program.h"
+#include "demo.h"
 #include "theme.h"
 #include "ui_panels/empty.h"
 #include "ui_panels/button.h"
+#include "ui_panels/input.h"
+#include "ui_panels/text.h"
+#include "ui_panels/flex.h"
 #include "tools.h"
+#include "ui_panels/buttallfoos.h"
+#include "program.h"
 
 panel_t *demopanel(void);
 
-void change_scene(void *data)
+panel_t *create_name_input(sfFont *font)
+{
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    return panel_input_create(rect, font, EntryTypeLetter);
+}
+
+void mopen_options(void *data)
 {
     program_t *program = (program_t *) data;
-    (void) start_scene(program, 1);
+    panel_t **panels = program->scenes[program->current_scene]->canvas->panels[0]->childs;
+
+    panels[0]->state = PANEL_STATE_INACTIVE;
+    panels[1]->state = PANEL_STATE_ACTIVE;
 }
 
-static panel_t *create_start_button(program_t *p)
-{
-    rectransform_t *sb_rect = rectransform_create();
-    sb_rect->size = (sfVector2f){200, 100};
-    sb_rect->pos = (sfVector2f){0, -75};
-    sb_rect->xanchor = ANCHOR_MIDDLE;
-    sb_rect->yanchor = ANCHOR_MIDDLE;
-    sb_rect->resize = RESIZE_NONE;
-    panel_t *start_butt =
-        panel_text_button_create(sb_rect, str("Start", 5), p->font, PTYPE_EVBUTT);
-    start_butt->state = PANEL_STATE_ACTIVE;
-    start_butt->childs = NULL;
-    start_butt->childs_count = 0;
-    ((panel_button_t *)start_butt->data)->trgt = p;
-    butt_set_foos(start_butt, change_scene, NULL);
-    return start_butt;
-}
-
-void quit_program(void *data)
+void mopen_cmds(void *data)
 {
     program_t *program = (program_t *) data;
-    program->pstate = Quit;
+    panel_t **panels = program->scenes[program->current_scene]->canvas->panels[0]->childs;
+
+    panels[0]->state = PANEL_STATE_INACTIVE;
+    panels[2]->state = PANEL_STATE_ACTIVE;
 }
 
-static panel_t *creat_quit_button(program_t *p)
+panel_t *menuflex(program_t *p)
 {
-    rectransform_t *sb_rect = rectransform_create();
-    sb_rect->size = (sfVector2f){200, 100};
-    sb_rect->pos = (sfVector2f){0, 75};
-    sb_rect->xanchor = ANCHOR_MIDDLE;
-    sb_rect->yanchor = ANCHOR_MIDDLE;
-    sb_rect->resize = RESIZE_NONE;
-    panel_t *start_butt =
-        panel_text_button_create(sb_rect, str("Quit", 4), p->font, PTYPE_EVBUTT);
-    start_butt->state = PANEL_STATE_ACTIVE;
-    start_butt->childs = NULL;
-    start_butt->childs_count = 0;
-    ((panel_button_t *)start_butt->data)->trgt = p;
-    butt_set_foos(start_butt, quit_program, NULL);
-    return start_butt;
+    panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){210, 60});
+    panel_add_childs(fmain, 6,
+        make_label(p->font, "Save Name:"),
+        create_name_input(p->font),
+        make_butt("Start", p, change_scene, p->font),
+        make_butt("Options", p, mopen_options, p->font),
+        make_butt("Commands", p, mopen_cmds, p->font),
+        make_butt("Quit", p, quit_program, p->font)
+    );
+    init_rshape(&(fmain->shape), MENU);
+    return fmain;
 }
+
+panel_t *cmdmenuflex(program_t *p);
 
 panel_t *demomenu(program_t *p)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){0, 0};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_XY;
-    panel_t *pmain = panel_empty_create(mrect, sfBlack);
-    pmain->state = PANEL_STATE_ACTIVE;
-    panel_t **childs = malloc(sizeof(panel_t *) * 3);
-    childs[0] = create_start_button(p);
-    childs[1] = creat_quit_button(p);
-    childs[2] = NULL;
-    pmain->childs = childs;
-    pmain->childs_count = 2;
+    rectransform_t *mrect = rtrans_create_resize();
+    panel_t *pmain = panel_none_create(mrect);
+    panel_add_childs(pmain, 3,
+        menuflex(p),
+        paramenuflex(p),
+        cmdmenuflex(p));
     return pmain;
 }

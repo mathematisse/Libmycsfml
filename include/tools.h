@@ -14,4 +14,6 @@ char *str(const char *str, int i);
 void init_text(sfText **text, sfFont *font, const char *str);
 void init_rshape(sfRectangleShape **shape, sfColor color);
 void init_sprite(sfSprite **sprite, sfTexture *texture, rectransform_t *r);
+void clamp(float *trgt, float min, float max);
+
 #endif /* TOOLS_H */

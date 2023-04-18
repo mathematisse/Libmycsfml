@@ -5,108 +5,143 @@
 ** Creates the base panels for paint
 */
 
-#include <stdlib.h>
-#include "theme.h"
-#include "ui_panels/empty.h"
-#include "tools.h"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
-panel_t *msg(void)
+#include <stdlib.h>
+#include "demo.h"
+#include "ui_panels/empty.h"
+#include "ui_panels/button.h"
+#include "ui_panels/input.h"
+#include "ui_panels/text.h"
+#include "ui_panels/flex.h"
+#include "tools.h"
+#include "ui_panels/buttallfoos.h"
+#include "ui_panels/draggable.h"
+#include "theme.h"
+#include "ui_panels/options.h"
+
+
+panel_t *minimap(void)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){200, 100};
-    mrect->pos = (sfVector2f){-150, 112.5};
+    rectransform_t *mrect = rtrans_create_centered(
+        (sfVector2f){-200, 200}, (sfVector2f){200, 200});
     mrect->xanchor = ANCHOR_END;
     mrect->yanchor = ANCHOR_START;
-    mrect->resize = RESIZE_NONE;
-    panel_t *main = panel_empty_create(mrect, sfColor_fromRGB(255, 255, 200));
-    main->state = PANEL_STATE_ACTIVE;
+    panel_t *main = panel_empty_create(mrect, ITEM_BG);
     return main;
+}
+
+panel_t *quick_access(void)
+{
+    panel_t *fmain = make_flex((sfVector2i){8, 1}, (sfVector2f){110, 110});
+    panel_t **childs = malloc(sizeof(panel_t) * 8 + 1);
+    fmain->rect->pos.y = -120;
+    fmain->rect->yanchor = ANCHOR_END;
+    for (int i = 0; i < 8; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), ITEM_BG);
+    childs[8] = NULL;
+    fmain->childs = childs;
+    fmain->childs_count = 8;
+    init_rshape(&(fmain->shape), MENU);
+    return fmain;
 }
 
 panel_t *toaster(void)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){300, 100};
-    mrect->pos = (sfVector2f){0, -100};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_END;
-    mrect->resize = RESIZE_X;
+    rectransform_t *mrect = rtrans_create_bardown(
+        (sfVector2f){0, -100}, (sfVector2f){300, 100});
     panel_t *main = panel_empty_create(mrect, sfGreen);
-    main->state = PANEL_STATE_ACTIVE;
+    panel_add_childs(main, 1, quick_access());
     return main;
 }
 
-panel_t *centerdraw(void)
+panel_t *escmenuflex(program_t *p)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){300, 300};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_NONE;
-    panel_t *main = panel_empty_create(mrect, sfWhite);
-    main->state = PANEL_STATE_ACTIVE;
-    return main;
+    panel_t *fmain = make_flex((sfVector2i){1, 8}, (sfVector2f){210, 60});
+    panel_add_childs(fmain, 8,
+        make_butt("Continue", p, continue_program, p->font),
+        make_butt("Inventory", p, open_inventory, p->font),
+        make_butt("Stats", p, open_stats, p->font),
+        make_butt("Save", p, save_content, p->font),
+        make_butt("Load", p, load_content, p->font),
+        make_butt("Options", p, open_options, p->font),
+        make_butt("Commands", p, open_cmds, p->font),
+        make_butt("Main Menu", p, quit_game, p->font)
+    );
+    init_rshape(&(fmain->shape), MENU);
+    fmain->state = PANEL_STATE_INACTIVE;
+    return fmain;
 }
 
-panel_t *center_panel(void)
+panel_t *left_bar(float width)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){150, 150};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_XY;
-    panel_t *main = panel_empty_create(mrect, sfYellow);
-    main->state = PANEL_STATE_ACTIVE;
-    return main;
+    return panel_empty_create(
+        rtrans_create_barleft(
+            (sfVector2f){width / 2, 0},
+            (sfVector2f){width, 0}),
+        sfBlack);
 }
 
-panel_t *left_bar(void)
+panel_t *game_interface(void)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){50, 0};
-    mrect->pos = (sfVector2f){25, 0};
+    rectransform_t *mrect = rtrans_create_resize();
     mrect->xanchor = ANCHOR_START;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_Y;
-    panel_t *main = panel_empty_create(mrect, sfBlue);
-    main->state = PANEL_STATE_ACTIVE;
-    return main;
-}
-
-panel_t * top_bar(void)
-{
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){0, 50};
-    mrect->pos = (sfVector2f){0, 25};
-    mrect->xanchor = ANCHOR_MIDDLE;
     mrect->yanchor = ANCHOR_START;
-    mrect->resize = RESIZE_X;
-    panel_t *main = panel_empty_create(mrect, sfRed);
-    main->state = PANEL_STATE_ACTIVE;
+    panel_t *main = panel_empty_create(mrect, sfTransparent);
+    panel_add_childs(main, 3,
+        left_bar(200),
+        quick_access(),
+        minimap());
     return main;
 }
 
-panel_t *demogame(void)
+panel_t *invmenuflex(program_t *p)
 {
-    rectransform_t *mrect = rectransform_create();
-    mrect->size = (sfVector2f){0, 0};
-    mrect->pos = (sfVector2f){0, 0};
-    mrect->xanchor = ANCHOR_MIDDLE;
-    mrect->yanchor = ANCHOR_MIDDLE;
-    mrect->resize = RESIZE_XY;
-    panel_t *main = panel_empty_create(mrect, sfBlack);
-    main->state = PANEL_STATE_ACTIVE;
-    panel_t **childs = malloc(sizeof(panel_t *) * 7);
-    childs[0] = top_bar();
-    childs[1] = left_bar();
-    childs[2] = toaster();
-    childs[3] = msg();
-    childs[4] = centerdraw();
-    childs[5] = center_panel();
-    childs[6] = NULL;
-    main->childs = childs;
-    main->childs_count = 6;
+    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){85, 85});
+    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
+    for (int i = 0; i < 8 * 4; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
+    childs[8 * 4] = NULL;
+    fmain->childs = childs;
+    fmain->childs_count = 8 * 4;
+    init_rshape(&(fmain->shape), MENU);
+    fmain->state = PANEL_STATE_INACTIVE;
+    return fmain;
+}
+
+panel_t *statmenuflex(program_t *p)
+{
+    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
+    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
+    for (int i = 0; i < 8 * 4; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
+    childs[8 * 4] = NULL;
+    fmain->childs = childs;
+    fmain->childs_count = 8 * 4;
+    init_rshape(&(fmain->shape), MENU);
+    fmain->state = PANEL_STATE_INACTIVE;
+    return fmain;
+}
+
+
+panel_t *cmdmenuflex(program_t *p)
+{
+    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
+    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
+    for (int i = 0; i < 8 * 4; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
+    childs[8 * 4] = NULL;
+    fmain->childs = childs;
+    fmain->childs_count = 8 * 4;
+    init_rshape(&(fmain->shape), MENU);
+    fmain->state = PANEL_STATE_INACTIVE;
+    return fmain;
+}
+
+panel_t *demogame(program_t *p)
+{
+    rectransform_t *mrect = rtrans_create_resize();
+    panel_t *main = panel_none_create(mrect);
+    panel_add_childs(main, 6, game_interface(), escmenuflex(p), invmenuflex(p), statmenuflex(p), paramenuflex(p), cmdmenuflex(p));
     return main;
 }

@@ -22,18 +22,28 @@ SRC			=	canvas/canvas_event.c		\
 				panel/panel_select.c		\
 				panel/panel_tests.c			\
 				panel/panel.c				\
-				panel/rectransform.c		\
+				rtrans/rtrans_bar_factory.c	\
+				rtrans/rtrans_factory.c		\
+				rtrans/rtrans_update.c		\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
 				program/program_start.c		\
-				ui_panels/button.c			\
+				ui_panels/button_factory.c	\
+				ui_panels/button_utilities.c\
+				ui_panels/draggable.c		\
 				ui_panels/dropdown.c		\
 				ui_panels/input.c			\
 				ui_panels/empty.c			\
-				ui_panels/text.c
+				ui_panels/flex.c			\
+				ui_panels/none.c			\
+				ui_panels/options.c			\
+				ui_panels/text.c			\
+				ui_panels/videofoos.c		\
+				ui_panels/butt_mfoos.c		\
+				ui_panels/butt_gfoos.c
 
-CFLAGS		=	-W -Wall -Wextra -Wpedantic -Werror -I./include
+CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
@@ -41,7 +51,14 @@ SRC			:=	$(addprefix src/, $(SRC))
 
 OBJ			=	$(SRC:.c=.o)
 
-DEMOBJ		=	tests/demo_main.o tests/demo_game.o tests/demo_menu.o
+DEMOSRC		=	demo_content.c	\
+				demo_game.c		\
+				demo_main.c		\
+				demo_menu.c
+
+DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
+
+DEMOBJ		=	$(DEMOSRC:.c=.o)
 
 $(NAME)		:	$(OBJ)
 	ar rc $@ $^

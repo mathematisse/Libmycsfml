@@ -9,7 +9,7 @@
 #include "scene.h"
 #include "canvas.h"
 
-scene_t *scene_create(panel_t **panels, void *content)
+scene_t *scene_create(panel_t **panels, content_t *content)
 {
     scene_t *scene = NULL;
     canvas_t *canvas = NULL;

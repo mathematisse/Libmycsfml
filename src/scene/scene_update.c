@@ -18,9 +18,9 @@ void scene_draw(sfRenderWindow *window, scene_t *scene)
 
 void scene_loop(sfRenderWindow *window, scene_t *scene, float dt)
 {
-    if (!window || !scene)
+    if (!window || !scene || !scene->content || !scene->content->looper)
         return;
-    if (scene->content && scene->content->looper)
+    if (scene->content->state == CONTENT_STATE_PLAY)
         scene->content->looper(scene->content->content, dt);
 }
 

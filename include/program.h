@@ -25,6 +25,8 @@ typedef struct program_s {
     scene_t **scenes;
     int current_scene;
     sfFont *font;
+    int fullscreen;
+    sfVector2f size;
 } program_t;
 
 typedef scene_t **(*program_maker_t)(program_t *);
@@ -36,4 +38,7 @@ int start_scene(program_t *p, int i);
 int execute_program(program_maker_t maker);
 int loop_events(program_t *p);
 void resize_event(program_t *p, sfSizeEvent e);
+
+panel_t *paramenuflex(program_t *p);
+
 #endif /* PROGRAM_H */

@@ -7,6 +7,22 @@
 
 #include <stdlib.h>
 #include "ui_panels/text.h"
+#include "tools.h"
+#include "ui_panels/flex.h"
+panel_t *make_label(sfFont *font, const char *str)
+{
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    return panel_text_create(rect, font, str);
+}
+
+panel_t *make_label_pair(sfFont *font, const char *str, panel_t *panel)
+{
+    panel_t *epanel = make_flex((sfVector2i){2, 1}, (sfVector2f){210, 60});
+    panel_add_childs(epanel, 2, make_label(font, str), panel);
+    epanel->rect->xanchor = ANCHOR_START;
+    epanel->rect->yanchor = ANCHOR_START;
+    return epanel;
+}
 
 panel_t *text_create(sfFont *font, const char *str, rectransform_t *rect)
 {
@@ -26,13 +42,7 @@ panel_t *panel_text_create(rectransform_t *rect, sfFont *font, const char *str)
     if (!panel)
         return NULL;
     panel->shape = NULL;
-    panel->text = sfText_create();
-    if (panel->text && font && str) {
-        sfText_setFont(panel->text, font);
-        sfText_setString(panel->text, str);
-        sfText_setCharacterSize(panel->text, 16);
-        sfText_setColor(panel->text, sfWhite);
-    }
+    init_text(&panel->text, font, str);
     return panel;
 }
 

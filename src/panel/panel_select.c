@@ -21,11 +21,11 @@ void on_panel_select(panel_t *panel)
     if (panel->type == PTYPE_DDBUTT) {
         panel_button_t *bpanel = (panel_button_t *)panel->data;
         if (bpanel->on_select)
-            bpanel->on_select(panel);
+            bpanel->on_select(bpanel->trgt);
     }
     if (panel->type == PTYPE_EVBUTT) {
         panel_button_t *bpanel = (panel_button_t *)panel->data;
-        if (bpanel->on_select)
+        if (bpanel && bpanel->on_select)
             bpanel->on_select(bpanel->trgt);
     }
 }
@@ -35,7 +35,11 @@ void on_panel_unselect(panel_t *panel)
     if (!panel)
         return;
     if (is_interactable(panel->type)) {
-        if (panel->shape)
+        if (!panel->shape)
+            return;
+        if (panel->type == PANEL_TYPE_INPUT)
+            sfRectangleShape_setFillColor(panel->shape, sfWhite);
+        else
             sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
     }
     if (panel->type == PTYPE_DDBUTT) {
