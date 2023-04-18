@@ -19,7 +19,7 @@ program_t *create_program(program_maker_t maker)
     prog->window = NULL;
     prog->cursor = cursor_create();
     prog->current_scene = -1;
-    prog->font = sfFont_createFromFile("ressources/Lato-Bold.ttf");
+    prog->font = sfFont_createFromFile("ressources/lato_bold.ttf");
     prog->scenes = maker(prog);
     return prog;
 }

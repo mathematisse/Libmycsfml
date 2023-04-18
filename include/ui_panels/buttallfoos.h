@@ -7,7 +7,6 @@
 
 #ifndef BUTTALLFOOS_H
     #define BUTTALLFOOS_H
-    #include "program.h"
 
 void change_scene(void *data);
 void quit_program(void *data);

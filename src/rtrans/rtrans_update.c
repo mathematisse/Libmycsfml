@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include "rectransform.h"
 
-sfVector2f rtrans_pos_update(rectransform_t *rect, sfVector2f *parentpos, sfVector2f *parentsize)
+sfVector2f rtrans_pos_update(
+    rectransform_t *rect, sfVector2f *parentpos, sfVector2f *parentsize)
 {
     sfVector2f pos;
 

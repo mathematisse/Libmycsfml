@@ -48,7 +48,7 @@ static void panel_rect_set(panel_t *panel)
 
 void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size)
 {
-    if (!panel)
+    if (!panel || !pos || !size)
         return;
     panel->pos = rtrans_pos_update(panel->rect, pos, size);
     panel->size = rtrans_size_update(panel->rect, size);
