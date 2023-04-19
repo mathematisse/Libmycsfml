@@ -10,6 +10,11 @@
     #define WRULE sfClose | sfResize | sfTitlebar
     #define WNAME "Libmycsfml"
     #define WDEPTH 32
+    #define WFPS 60
+    #define HRESOL 1920, 1080
+    #define MRESOL 1280, 720
+    #define LRESOL 800, 600
+    #define XSRESOL 400, 300
     #include <SFML/Audio.h>
     #include "scene.h"
     #include "cursor.h"
