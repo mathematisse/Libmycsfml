@@ -11,11 +11,6 @@
     #include "program.h"
 
 panel_t *demogame(program_t *p);
-panel_t *demomenu(program_t *p);
-
-panel_t *create_start_button(program_t *p);
-panel_t *create_quit_button(program_t *p);
-panel_t *create_continue_button(program_t *p);
-
 content_t *demo_content_maker(void);
+panel_t *game_interface(void);
 #endif /* DEMO_H */

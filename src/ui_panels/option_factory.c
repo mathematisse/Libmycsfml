@@ -16,6 +16,7 @@
 #include "ui_panels/options.h"
 #include "ui_panels/dropdown.h"
 #include "ui_panels/slider.h"
+#include "ui_panels/buttallfoos.h"
 
 panel_t *resolution_dd(sfFont *font, program_t *prog)
 {
@@ -35,26 +36,6 @@ static panel_t *resol_dd_butt(sfFont *font, program_t *prog)
     return panel;
 }
 
-void update_music_volume(void *in, float value)
-{
-    program_t *prog = (program_t *)in;
-    prog->params.music_volume = value;
-    sfMusic_setVolume(prog->music,
-        value * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
-}
-
-void update_sound_volume(void *in, float value)
-{
-    program_t *prog = (program_t *)in;
-    canvas_t *c = prog->scenes[prog->current_scene]->canvas;
-
-    prog->params.sound_volume = value;
-    sfSound_setVolume(c->soundppress,
-        value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
-    sfSound_setVolume(c->soundprelease,
-        value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
-}
-
 panel_t *paramenuflex(program_t *p)
 {
     panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){440, 70});
@@ -68,6 +49,24 @@ panel_t *paramenuflex(program_t *p)
             make_slider(p, update_music_volume)),
         make_label_pair(p->font, "Sound",
             make_slider(p, update_sound_volume)));
+    init_rshape(&(fmain->shape), MENU);
+    fmain->state = PANEL_STATE_INACTIVE;
+    return fmain;
+}
+
+panel_t *escmenuflex(program_t *p)
+{
+    panel_t *fmain = make_flex((sfVector2i){1, 8}, (sfVector2f){210, 60});
+    panel_add_childs(fmain, 8,
+        make_butt("Continue", p, continue_program, p->font),
+        make_butt("Inventory", p, open_inventory, p->font),
+        make_butt("Stats", p, open_stats, p->font),
+        make_butt("Save", p, save_content, p->font),
+        make_butt("Load", p, load_content, p->font),
+        make_butt("Options", p, open_options, p->font),
+        make_butt("Commands", p, open_cmds, p->font),
+        make_butt("Main Menu", p, quit_game, p->font)
+    );
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;

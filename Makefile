@@ -42,8 +42,10 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
-				ui_panels/options.c			\
+				ui_panels/option_factory.c	\
+				ui_panels/option_update.c	\
 				ui_panels/slider.c			\
+				ui_panels/start.c			\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
 				ui_panels/butt_mfoos.c		\
@@ -60,7 +62,7 @@ OBJ			=	$(SRC:.c=.o)
 DEMOSRC		=	demo_content.c	\
 				demo_game.c		\
 				demo_main.c		\
-				demo_menu.c
+				demo_interface.c
 
 DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
 
