@@ -21,5 +21,7 @@
     #define ITEM_BG sfColor_fromRGB(150, 150, 150)
     #define INPUT_COLOR sfColor_fromRGB(200, 200, 200)
     #define INPUT_TEXT_COLOR sfColor_fromRGB(0, 0, 0)
-
+    #define MUSICVOLUME 50
+    #define SOUNDVOLUME 50
+    #define VOLRANGE 100
 #endif /* THEME_H */

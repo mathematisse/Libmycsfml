@@ -10,14 +10,7 @@
     #include "canvas.h"
     #include "content.h"
 
-typedef struct scene_settings_s {
-    sfVector2u size;
-    char *title;
-    sfUint32 style;
-} scene_settings_t;
-
 typedef struct scene_s {
-    scene_settings_t settings;
     canvas_t *canvas;
     content_t *content;
 } scene_t;

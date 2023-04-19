@@ -20,7 +20,8 @@ typedef enum panel_type {
     PTYPE_DDBUTT,
     PTYPE_EVBUTT,
     PANEL_TYPE_IMAGE,
-    PANEL_TYPE_DRAG
+    PANEL_TYPE_DRAG,
+    PANEL_TYPE_SLIDER
 } ptype_t;
 
 typedef enum panel_state {

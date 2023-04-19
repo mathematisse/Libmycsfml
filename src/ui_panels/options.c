@@ -15,6 +15,7 @@
 #include "ui_panels/button.h"
 #include "ui_panels/options.h"
 #include "ui_panels/dropdown.h"
+#include "ui_panels/slider.h"
 
 panel_t *resolution_dd(sfFont *font, program_t *prog)
 {
@@ -34,14 +35,21 @@ static panel_t *resol_dd_butt(sfFont *font, program_t *prog)
     return panel;
 }
 
-panel_t *make_slider(sfVector2f pos)
+void update_music_volume(void *in, float value)
 {
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
-    panel_t *epanel = panel_none_create(rect);
-    panel_add_childs(epanel, 2, make_handle_drag(pos, epanel),
-        panel_empty_create(
-            rtrans_create_flexelem((sfVector2f){200, 10}), ITEM_BG));
-    return epanel;
+    program_t *prog = (program_t *)in;
+    prog->params.music_volume = value;
+    sfMusic_setVolume(prog->music, value * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
+}
+
+void update_sound_volume(void *in, float value)
+{
+    program_t *prog = (program_t *)in;
+    canvas_t *c = prog->scenes[prog->current_scene]->canvas;
+
+    prog->params.sound_volume = value;
+    sfSound_setVolume(c->soundppress, value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
+    sfSound_setVolume(c->soundprelease, value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
 }
 
 panel_t *paramenuflex(program_t *p)
@@ -53,9 +61,10 @@ panel_t *paramenuflex(program_t *p)
             make_butt("Toggle", p, toggle_fullscreen, p->font)),
         make_label_pair(p->font, "Resolution", resol_dd_butt(p->font, p)),
         make_label(p->font, "Audio"),
-        make_label_pair(p->font, "Music", make_slider((sfVector2f){0, 0})),
-        make_label_pair(p->font, "Sound", make_slider((sfVector2f){0, 0}))
-    );
+        make_label_pair(p->font, "Music",
+            make_slider(p, update_music_volume)),
+        make_label_pair(p->font, "Sound",
+            make_slider(p, update_sound_volume)));
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;

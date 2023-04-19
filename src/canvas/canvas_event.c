@@ -41,8 +41,10 @@ void canvas_pressed(canvas_t *c, sfMouseButtonEvent e)
     sfVector2i *pos = &(sfVector2i){e.x, e.y};
     canvas_hover(c, pos);
     c->pressed = c->hovered;
-    if (c->pressed != c->selected)
+    if (c->pressed != c->selected) {
         on_panel_pressed(c->pressed);
+        sfSound_play(c->soundppress);
+    }
 }
 
 void canvas_released(canvas_t *c, sfMouseButtonEvent e)
@@ -51,8 +53,10 @@ void canvas_released(canvas_t *c, sfMouseButtonEvent e)
     if (c->selected && c->pressed != c->selected
         && c->selected->type == PTYPE_DDBUTT)
         on_panel_unselect(c->selected);
-    if (c->pressed != c->selected)
+    if (c->pressed != c->selected) {
         on_panel_released(c->pressed);
+        sfSound_play(c->soundprelease);
+    }
     if (c->pressed == c->hovered && c->pressed != c->selected) {
         on_panel_select(c->pressed);
         on_panel_unselect(c->selected);
