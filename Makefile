@@ -25,16 +25,20 @@ SRC			=	canvas/canvas_event.c		\
 				rtrans/rtrans_bar_factory.c	\
 				rtrans/rtrans_factory.c		\
 				rtrans/rtrans_update.c		\
+				params/hyper_param.c		\
+				params/param_load.c			\
+				params/user_param.c			\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
 				program/program_start.c		\
-				program/read_param.c		\
 				ui_panels/button_factory.c	\
 				ui_panels/button_utilities.c\
-				ui_panels/draggable.c		\
+				ui_panels/draggable_factory.c		\
+				ui_panels/draggable_update.c		\
 				ui_panels/dropdown.c		\
-				ui_panels/input.c			\
+				ui_panels/input_factory.c	\
+				ui_panels/input_update.c	\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
