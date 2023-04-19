@@ -27,6 +27,13 @@ int start_first_scene(program_t *p)
 
 int start_scene(program_t *p, int i)
 {
+    scene_t *s = p->scenes[p->current_scene];
+
+    on_panel_unselect(s->canvas->selected);
+    s->canvas->selected = NULL;
+    s = p->scenes[i];
+    on_panel_unselect(s->canvas->selected);
+    s->canvas->selected = NULL;
     p->current_scene = i;
     if (!(p->window))
         return EXIT_FAILURE;

@@ -16,7 +16,7 @@ typedef struct panel_slider_s {
     slider_foo_t foo;
 } panel_slider_t;
 
-panel_t *make_slider(void *trgt, slider_foo_t foo);
+panel_t *make_slider(void *trgt, slider_foo_t foo, float init_value);
 panel_t *panel_slider_create(rectransform_t *);
 void panel_slider_destroy(panel_t *);
 

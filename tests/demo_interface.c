@@ -23,7 +23,8 @@
 panel_t *minimap(void)
 {
     rectransform_t *mrect = rtrans_create_centered(
-        (sfVector2f){-200, 200}, (sfVector2f){200, 200});
+        (sfVector2f){- ELEMMARGIN * 2.0 - MAPSIZE / 2.0,
+        ELEMMARGIN * 2.0 + MAPSIZE / 2.0}, (sfVector2f){MAPSIZE, MAPSIZE});
     mrect->xanchor = ANCHOR_END;
     mrect->yanchor = ANCHOR_START;
     panel_t *main = panel_empty_create(mrect, ITEM_BG);
@@ -35,7 +36,7 @@ panel_t *quick_access(void)
     panel_t *fmain = make_flex((sfVector2i){INVENTORYX, 1},
         (sfVector2f){ITEMSIZE + ELEMMARGIN, ITEMSIZE + ELEMMARGIN});
     panel_t **childs = malloc(sizeof(panel_t) * INVENTORYX + 1);
-    fmain->rect->pos.y = -120;
+    fmain->rect->pos.y = -ITEMSIZE / 2.0 - ELEMMARGIN * 2.0;
     fmain->rect->yanchor = ANCHOR_END;
     for (int i = 0; i < INVENTORYX; i++)
         childs[i] = panel_empty_create(rtrans_create_flexelem(

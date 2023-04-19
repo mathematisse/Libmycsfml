@@ -34,6 +34,7 @@ void scene_pressed(scene_t *s, sfMouseButtonEvent e)
 {
     if (!s)
         return;
+    sfSound_play(s->canvas->soundppress);
     if (e.button == sfMouseLeft)
         canvas_pressed(s->canvas, e);
     if (s->canvas->hovered == NULL && s->content && s->content->on_press)
@@ -44,6 +45,7 @@ void scene_released(scene_t *s, sfMouseButtonEvent e)
 {
     if (!s)
         return;
+    sfSound_play(s->canvas->soundprelease);
     if (e.button == sfMouseLeft)
         canvas_released(s->canvas, e);
     if (s->content && s->content->on_release)
@@ -58,6 +60,8 @@ void scene_key_pressed(scene_t *s, sfKeyEvent e)
         return;
     c = s->content;
     if (e.code == sfKeyEscape) {
+        on_panel_unselect(s->canvas->selected);
+        s->canvas->selected = NULL;
         if (c)
             option_esc_pressed(s);
         else

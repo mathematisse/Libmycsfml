@@ -32,6 +32,7 @@
     #define ELEMMARGIN 10
     #define MAXNUMLEN 4
     #define MAXSTRLEN 10
+    #define MAPSIZE 200
 
 enum program_state {
     Created,

@@ -11,6 +11,11 @@
 void quit_game(void *data)
 {
     program_t *program = (program_t *) data;
+    scene_t *scene = program->scenes[program->current_scene];
+    panel_t **panels = scene->canvas->panels[0]->childs;
+
+    panels[0]->state = PANEL_STATE_ACTIVE;
+    panels[1]->state = PANEL_STATE_INACTIVE;
     (void) start_scene(program, 0);
 }
 
