@@ -10,11 +10,12 @@
 #include "ui_panels/button.h"
 #include "theme.h"
 #include "tools.h"
+#include "program.h"
 
 panel_t *make_butt(
     const char *label, void *trgt, button_foo_t foo, sfFont *font)
 {
-    sfVector2f size = {200, 50};
+    sfVector2f size = {ELEMX, ELEMY};
     rectransform_t *sb_rect = rtrans_create_flexelem(size);
     panel_t *butt = panel_text_button_create(
         sb_rect, strdup(label), font, PTYPE_EVBUTT);

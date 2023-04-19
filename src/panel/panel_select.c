@@ -38,7 +38,7 @@ void on_panel_unselect(panel_t *panel)
         if (!panel->shape)
             return;
         if (panel->type == PANEL_TYPE_INPUT)
-            sfRectangleShape_setFillColor(panel->shape, sfWhite);
+            sfRectangleShape_setFillColor(panel->shape, INPUT_COLOR);
         else
             sfRectangleShape_setFillColor(panel->shape, BUTTON_BASE);
     }

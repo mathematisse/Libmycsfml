@@ -21,7 +21,8 @@ void init_text(sfText **text, sfFont *font, const char *str)
     sfText_setString(*text, str);
     sfText_setCharacterSize(*text, 20);
     trect = sfText_getLocalBounds(*text);
-    sfText_setOrigin(*text, (sfVector2f){trect.left + trect.width / 2.0f,
+    sfText_setOrigin(*text, (sfVector2f){
+        trect.left + trect.width / 2.0f,
         trect.top + trect.height / 2.0f});
 }
 

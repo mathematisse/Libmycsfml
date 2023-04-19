@@ -10,68 +10,68 @@
 void set_high_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
-        prog->window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32},
-            "Demo", sfResize | sfClose, NULL);
-        sfRenderWindow_setFramerateLimit(prog->window, 60);
+        prog->window = sfRenderWindow_create((sfVideoMode){HRESOL, WDEPTH},
+            WNAME, WRULE, NULL);
+        sfRenderWindow_setFramerateLimit(prog->window, WFPS);
         return;
     }
-    sfRenderWindow_setSize(prog->window, (sfVector2u){1920, 1080});
+    sfRenderWindow_setSize(prog->window, (sfVector2u){HRESOL});
 }
 
 void set_medium_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
-        prog->window = sfRenderWindow_create((sfVideoMode){1280, 720, 32},
-            "Demo", sfResize | sfClose, NULL);
-        sfRenderWindow_setFramerateLimit(prog->window, 60);
+        prog->window = sfRenderWindow_create((sfVideoMode){MRESOL, WDEPTH},
+            WNAME, WRULE, NULL);
+        sfRenderWindow_setFramerateLimit(prog->window, WFPS);
         return;
     }
-    sfRenderWindow_setSize(prog->window, (sfVector2u){1280, 720});
+    sfRenderWindow_setSize(prog->window, (sfVector2u){MRESOL});
 }
 
 void set_low_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
-        prog->window = sfRenderWindow_create((sfVideoMode){800, 600, 32},
-            "Demo", sfResize | sfClose, NULL);
-        sfRenderWindow_setFramerateLimit(prog->window, 60);
+        prog->window = sfRenderWindow_create((sfVideoMode){LRESOL, WDEPTH},
+            WNAME, WRULE, NULL);
+        sfRenderWindow_setFramerateLimit(prog->window, WFPS);
         return;
     }
-    sfRenderWindow_setSize(prog->window, (sfVector2u){800, 600});
+    sfRenderWindow_setSize(prog->window, (sfVector2u){LRESOL});
 }
 
 void set_mini_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
-        prog->window = sfRenderWindow_create((sfVideoMode){400, 300, 32},
-            "Demo", sfResize | sfClose, NULL);
-        sfRenderWindow_setFramerateLimit(prog->window, 60);
+        prog->window = sfRenderWindow_create((sfVideoMode){XSRESOL, WDEPTH},
+            WNAME, WRULE, NULL);
+        sfRenderWindow_setFramerateLimit(prog->window, WFPS);
         return;
     }
-    sfRenderWindow_setSize(prog->window, (sfVector2u){400, 300});
+    sfRenderWindow_setSize(prog->window, (sfVector2u){XSRESOL});
 }
 
 void toggle_fullscreen(void *data)
 {
     program_t *p = (program_t *)data;
-    p->fullscreen = !p->fullscreen;
+    p->params.fullscreen = !p->params.fullscreen;
     sfRenderWindow_destroy(p->window);
-    p->window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32},
-        "Demo", sfClose | sfResize | (p->fullscreen ? sfFullscreen : 0), NULL);
-    sfRenderWindow_setFramerateLimit(p->window, 60);
-    if (p->fullscreen)
+    p->window = sfRenderWindow_create(
+        (sfVideoMode){p->params.width, p->params.height, WDEPTH},
+        WNAME, WRULE | (p->params.fullscreen ? sfFullscreen : 0), NULL);
+    sfRenderWindow_setFramerateLimit(p->window, WFPS);
+    if (p->params.fullscreen)
         return;
-    set_medium_resol(p);
 }

@@ -11,10 +11,10 @@
 sfVector2f rtrans_pos_update(
     rectransform_t *rect, sfVector2f *parentpos, sfVector2f *parentsize)
 {
-    sfVector2f pos;
+    sfVector2f pos = (sfVector2f){0, 0};
 
     if (!rect || !parentpos || !parentsize)
-        return (sfVector2f){0, 0};
+        return pos;
     pos = rect->pos;
     if (rect->xanchor == ANCHOR_START)
         pos.x += parentpos->x;

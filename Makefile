@@ -25,19 +25,28 @@ SRC			=	canvas/canvas_event.c		\
 				rtrans/rtrans_bar_factory.c	\
 				rtrans/rtrans_factory.c		\
 				rtrans/rtrans_update.c		\
+				params/hyper_param.c		\
+				params/param_load.c			\
+				params/user_param.c			\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
 				program/program_start.c		\
 				ui_panels/button_factory.c	\
 				ui_panels/button_utilities.c\
-				ui_panels/draggable.c		\
+				ui_panels/draggable_factory.c		\
+				ui_panels/draggable_update.c		\
 				ui_panels/dropdown.c		\
-				ui_panels/input.c			\
+				ui_panels/input_factory.c	\
+				ui_panels/input_update.c	\
 				ui_panels/empty.c			\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
-				ui_panels/options.c			\
+				ui_panels/option_factory.c	\
+				ui_panels/option_update.c	\
+				ui_panels/slider.c			\
+				ui_panels/start_factory.c	\
+				ui_panels/start_update.c	\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
 				ui_panels/butt_mfoos.c		\
@@ -45,7 +54,7 @@ SRC			=	canvas/canvas_event.c		\
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
-CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
+CSFML		=	-lcsfml-audio -lcsfml-graphics -lcsfml-window -lcsfml-system
 
 SRC			:=	$(addprefix src/, $(SRC))
 
@@ -54,7 +63,7 @@ OBJ			=	$(SRC:.c=.o)
 DEMOSRC		=	demo_content.c	\
 				demo_game.c		\
 				demo_main.c		\
-				demo_menu.c
+				demo_interface.c
 
 DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
 
@@ -84,7 +93,7 @@ debug		: 	CFLAGS += -g
 debug		: 	re demo
 
 demo		: 	$(NAME) $(DEMOBJ)
-	gcc -o demo $(DEMOBJ) $(CFLAGS) $(CSFML) -L. -lmycsfml
+	gcc -o demo $(DEMOBJ) $(CFLAGS) -L. -lmycsfml $(CSFML)
 
 run			: 	demo
 	./demo

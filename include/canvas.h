@@ -7,6 +7,7 @@
 
 #ifndef CANVAS_H
     #define CANVAS_H
+    #include <SFML/Audio.h>
     #include "panel.h"
 
 typedef struct canvas_s {
@@ -14,6 +15,10 @@ typedef struct canvas_s {
     panel_t *hovered;
     panel_t *pressed;
     panel_t *selected;
+    sfSoundBuffer *spbuf;
+    sfSound *soundppress;
+    sfSoundBuffer *srbuf;
+    sfSound *soundprelease;
 } canvas_t;
 
 canvas_t *canvas_create(panel_t **panels);

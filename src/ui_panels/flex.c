@@ -12,8 +12,7 @@
 
 panel_t *make_flex(sfVector2i counts, sfVector2f elem_size)
 {
-    rectransform_t *mrect = rtrans_create_centered(
-        (sfVector2f){0, 0},
+    rectransform_t *mrect = rtrans_create_centered((sfVector2f){0, 0},
         (sfVector2f){counts.x * elem_size.x, counts.y * elem_size.y});
     panel_t *pmain = panel_flex_create(mrect, counts, elem_size);
     return pmain;
