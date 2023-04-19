@@ -28,7 +28,7 @@ panel_t *make_slider(void *trgt, slider_foo_t foo)
 
 static panel_slider_t *slider_create(void)
 {
-    panel_slider_t *bpanel = malloc(sizeof(panel_slider_t)); 
+    panel_slider_t *bpanel = malloc(sizeof(panel_slider_t));
 
     if (!bpanel)
         return NULL;

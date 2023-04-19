@@ -24,7 +24,8 @@ program_t *create_program(program_maker_t maker)
     prog->font = sfFont_createFromFile("ressources/lato_bold.ttf");
     prog->music = sfMusic_createFromFile("ressources/blues.ogg");
     sfMusic_setLoop(prog->music, sfTrue);
-    sfMusic_setVolume(prog->music, prog->params.music_volume * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
+    sfMusic_setVolume(prog->music,
+        prog->params.music_volume * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
     prog->scenes = maker(prog);
     return prog;
 }

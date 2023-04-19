@@ -14,7 +14,8 @@ int start_first_scene(program_t *p)
     sfVideoMode mode = {p->params.width, p->params.height, WDEPTH};
 
     p->current_scene = 0;
-    p->window = sfRenderWindow_create(mode, WNAME, WRULE, NULL);
+    p->window = sfRenderWindow_create(mode,
+        WNAME, WRULE | (p->params.fullscreen ? sfFullscreen : 0), NULL);
     if (!(p->window))
         return EXIT_FAILURE;
     p->params.fullscreen = 0;

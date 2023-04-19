@@ -24,7 +24,8 @@ typedef struct panel_input_s {
 } panel_input_t;
 
 panel_t *make_name_input(sfFont *font, char **trgt);
-panel_t *panel_input_create(rectransform_t *, sfFont *, entry_type_t, const char *);
+panel_t *panel_input_create(
+    rectransform_t *, sfFont *, entry_type_t, const char *);
 void panel_input_destroy(panel_t *);
 
 void on_text_entered(sfTextEvent, panel_t *);

@@ -39,7 +39,8 @@ void update_music_volume(void *in, float value)
 {
     program_t *prog = (program_t *)in;
     prog->params.music_volume = value;
-    sfMusic_setVolume(prog->music, value * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
+    sfMusic_setVolume(prog->music,
+        value * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);
 }
 
 void update_sound_volume(void *in, float value)
@@ -48,8 +49,10 @@ void update_sound_volume(void *in, float value)
     canvas_t *c = prog->scenes[prog->current_scene]->canvas;
 
     prog->params.sound_volume = value;
-    sfSound_setVolume(c->soundppress, value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
-    sfSound_setVolume(c->soundprelease, value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
+    sfSound_setVolume(c->soundppress,
+        value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
+    sfSound_setVolume(c->soundprelease,
+        value * VOLRANGE + SOUNDVOLUME - VOLRANGE / 2);
 }
 
 panel_t *paramenuflex(program_t *p)
