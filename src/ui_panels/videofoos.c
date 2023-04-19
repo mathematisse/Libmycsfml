@@ -10,8 +10,8 @@
 void set_high_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
         prog->window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32},
             "Demo", sfResize | sfClose, NULL);
@@ -24,8 +24,8 @@ void set_high_resol(void *p)
 void set_medium_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
         prog->window = sfRenderWindow_create((sfVideoMode){1280, 720, 32},
             "Demo", sfResize | sfClose, NULL);
@@ -38,8 +38,8 @@ void set_medium_resol(void *p)
 void set_low_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
         prog->window = sfRenderWindow_create((sfVideoMode){800, 600, 32},
             "Demo", sfResize | sfClose, NULL);
@@ -52,8 +52,8 @@ void set_low_resol(void *p)
 void set_mini_resol(void *p)
 {
     program_t *prog = (program_t *)p;
-    if (prog->fullscreen) {
-        prog->fullscreen = 0;
+    if (prog->params.fullscreen) {
+        prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
         prog->window = sfRenderWindow_create((sfVideoMode){400, 300, 32},
             "Demo", sfResize | sfClose, NULL);
@@ -66,12 +66,12 @@ void set_mini_resol(void *p)
 void toggle_fullscreen(void *data)
 {
     program_t *p = (program_t *)data;
-    p->fullscreen = !p->fullscreen;
+    p->params.fullscreen = !p->params.fullscreen;
     sfRenderWindow_destroy(p->window);
     p->window = sfRenderWindow_create((sfVideoMode){1920, 1080, 32},
-        "Demo", sfClose | sfResize | (p->fullscreen ? sfFullscreen : 0), NULL);
+        "Demo", sfClose | sfResize | (p->params.fullscreen ? sfFullscreen : 0), NULL);
     sfRenderWindow_setFramerateLimit(p->window, 60);
-    if (p->fullscreen)
+    if (p->params.fullscreen)
         return;
     set_medium_resol(p);
 }
