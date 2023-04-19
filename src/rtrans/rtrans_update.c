@@ -1,42 +1,21 @@
 /*
-** PERSONNAL PROJECT, 2023
+** EPITECH PROJECT, 2023
 ** Libmycsfml
 ** File description:
 ** General foos for rectransform
 */
 
 #include <stdlib.h>
-#include "panel/rectransform.h"
+#include "rectransform.h"
 
-rectransform_t *rectransform_create(void)
+sfVector2f rtrans_pos_update(
+    rectransform_t *rect, sfVector2f *parentpos, sfVector2f *parentsize)
 {
-    rectransform_t *rect = malloc(sizeof(rectransform_t));
+    sfVector2f pos = (sfVector2f){0, 0};
 
-    if (!rect)
-        return NULL;
-    rect->pos = (sfVector2f){0, 0};
-    rect->size = (sfVector2f){0, 0};
-    rect->xanchor = ANCHOR_NONE;
-    rect->yanchor = ANCHOR_NONE;
-    rect->resize = RESIZE_NONE;
-    return rect;
-}
-
-void rectransform_destroy(rectransform_t *rect)
-{
-    if (rect)
-        free(rect);
-}
-
-sfVector2f pos_transform_rect(
-    rectransform_t *rect,
-    sfVector2f *parentpos,
-    sfVector2f *parentsize)
-{
     if (!rect || !parentpos || !parentsize)
-        return (sfVector2f){0, 0};
-    sfVector2f pos = rect->pos;
-
+        return pos;
+    pos = rect->pos;
     if (rect->xanchor == ANCHOR_START)
         pos.x += parentpos->x;
     if (rect->xanchor == ANCHOR_MIDDLE)
@@ -52,7 +31,7 @@ sfVector2f pos_transform_rect(
     return pos;
 }
 
-sfVector2f size_transform_rect(rectransform_t *rect, sfVector2f *psize)
+sfVector2f rtrans_size_update(rectransform_t *rect, sfVector2f *psize)
 {
     sfVector2f size;
 
