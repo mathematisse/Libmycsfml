@@ -7,6 +7,7 @@
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "content.h"
