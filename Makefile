@@ -29,6 +29,7 @@ SRC			=	canvas/canvas_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
 				program/program_start.c		\
+				program/read_param.c		\
 				ui_panels/button_factory.c	\
 				ui_panels/button_utilities.c\
 				ui_panels/draggable.c		\
@@ -38,6 +39,7 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/flex.c			\
 				ui_panels/none.c			\
 				ui_panels/options.c			\
+				ui_panels/slider.c			\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
 				ui_panels/butt_mfoos.c		\
@@ -45,7 +47,7 @@ SRC			=	canvas/canvas_event.c		\
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
-CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-system
+CSFML		=	-lcsfml-audio -lcsfml-graphics -lcsfml-window -lcsfml-system
 
 SRC			:=	$(addprefix src/, $(SRC))
 
@@ -84,7 +86,7 @@ debug		: 	CFLAGS += -g
 debug		: 	re demo
 
 demo		: 	$(NAME) $(DEMOBJ)
-	gcc -o demo $(DEMOBJ) $(CFLAGS) $(CSFML) -L. -lmycsfml
+	gcc -o demo $(DEMOBJ) $(CFLAGS) -L. -lmycsfml $(CSFML)
 
 run			: 	demo
 	./demo

@@ -20,12 +20,6 @@
 
 panel_t *demopanel(void);
 
-panel_t *create_name_input(sfFont *font)
-{
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
-    return panel_input_create(rect, font, EntryTypeLetter);
-}
-
 void mopen_options(void *data)
 {
     program_t *program = (program_t *) data;
@@ -49,7 +43,7 @@ panel_t *menuflex(program_t *p)
     panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){210, 60});
     panel_add_childs(fmain, 6,
         make_label(p->font, "Save Name:"),
-        create_name_input(p->font),
+        make_name_input(p->font, &(p->params.user)),
         make_butt("Start", p, change_scene, p->font),
         make_butt("Options", p, mopen_options, p->font),
         make_butt("Commands", p, mopen_cmds, p->font),

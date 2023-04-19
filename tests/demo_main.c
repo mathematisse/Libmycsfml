@@ -24,15 +24,6 @@ scene_t **demo_scenes(program_t *p)
     scenes[0] = scene_create(mpanels, NULL);
     scenes[1] = scene_create(panels, demo_content_maker());
     scenes[2] = NULL;
-    scenes[0]->settings = (scene_settings_t) {
-        .size = (sfVector2u) {1920, 1080},
-        .title = "Demo Menu",
-        .style = sfClose | sfResize | sfTitlebar
-    };
-    scenes[1]->settings = (scene_settings_t) {
-        .size = (sfVector2u) {1920, 1080},
-        .title = "Demo Demo"
-    };
     return scenes;
 }
 

@@ -89,9 +89,7 @@ panel_t *game_interface(void)
     mrect->yanchor = ANCHOR_START;
     panel_t *main = panel_empty_create(mrect, sfTransparent);
     panel_add_childs(main, 3,
-        left_bar(200),
-        quick_access(),
-        minimap());
+        left_bar(200), quick_access(), minimap());
     return main;
 }
 
