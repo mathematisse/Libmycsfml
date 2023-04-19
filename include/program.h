@@ -13,9 +13,9 @@
     #include <SFML/Audio.h>
     #include "scene.h"
     #include "cursor.h"
+    #include "param.h"
     #define INVENTORYX 8
     #define INVENTORYY 5
-
 
 enum program_state {
     Created,
@@ -24,16 +24,6 @@ enum program_state {
     End,
     Quit
 };
-
-typedef struct prog_param_s {
-    int width;
-    int height;
-    int fullscreen;
-    float scale;
-    char *user;
-    float music_volume;
-    float sound_volume;
-} prog_param_t;
 
 typedef struct user_s {
     int credit;
@@ -67,6 +57,4 @@ int loop_events(program_t *p);
 void resize_event(program_t *p, sfSizeEvent e);
 
 panel_t *paramenuflex(program_t *p);
-void load_hyperparams(prog_param_t *params, const char* path);
-void save_hyperparams(prog_param_t *params, const char* path);
 #endif /* PROGRAM_H */
