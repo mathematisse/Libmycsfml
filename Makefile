@@ -45,7 +45,8 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/option_factory.c	\
 				ui_panels/option_update.c	\
 				ui_panels/slider.c			\
-				ui_panels/start.c			\
+				ui_panels/start_factory.c	\
+				ui_panels/start_update.c	\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
 				ui_panels/butt_mfoos.c		\

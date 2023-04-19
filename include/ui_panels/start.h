@@ -9,6 +9,9 @@
     #define PANEL_START_H
     #include "program.h"
 
-panel_t *startmenu(program_t *p);
+scene_t *start_menu_scene(program_t *p);
 void start_esc_pressed(scene_t *s);
+
+void start_esc_pressed(scene_t *s);
+void mopen_options(void *data);
 #endif /* PANEL_START_H */

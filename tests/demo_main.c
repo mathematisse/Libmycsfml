@@ -10,17 +10,6 @@
 #include "demo.h"
 #include "ui_panels/start.h"
 
-scene_t *start_menu_scene(program_t *p)
-{
-    panel_t **mpanels = malloc(sizeof(panel_t *) * 2);
-
-    if (!mpanels)
-        return NULL;
-    mpanels[0] = startmenu(p);
-    mpanels[1] = NULL;
-    return scene_create(mpanels, NULL);
-}
-
 scene_t **demo_scenes(program_t *p)
 {
     scene_t **scenes = malloc(sizeof(scene_t *) * 3);
