@@ -15,7 +15,7 @@
 
 panel_t *make_handle_drag(sfVector2f pos, panel_t *parent)
 {
-    sfVector2f size = {15, 40};
+    sfVector2f size = {HANDLEX, ELEMY - ELEMY / 5};
     rectransform_t *sb_rect = rtrans_create_centered(pos, size);
     sb_rect->xanchor = ANCHOR_START;
     sb_rect->yanchor = ANCHOR_START;
@@ -48,7 +48,8 @@ panel_t *panel_handle_drag_create(
     if (!panel)
         return NULL;
     init_rshape(&(panel->shape), HANDLES);
-    bpanel->bounds = (sfFloatRect){-100, 0, 200, 0};
+    bpanel->bounds = (sfFloatRect){
+        -ELEMX / 2.0 + ELEMMARGIN, 0, ELEMX - 2 * ELEMMARGIN, 0};
     bpanel->parent = parent;
     return panel;
 }

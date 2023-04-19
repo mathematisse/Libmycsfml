@@ -13,7 +13,7 @@
 
 panel_t *make_name_input(sfFont *font, char **trgt)
 {
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){ELEMX, ELEMY});
     panel_t *panel = panel_input_create(rect, font, EntryTypeLetter, *trgt);
     panel_input_t *input = (panel_input_t *) panel->data;
 
@@ -29,8 +29,8 @@ static void init_ipanel(
         return;
     ipanel->type = type;
     switch (type) {
-        case EntryTypeNumber: ipanel->max_size = 4; break;
-        case EntryTypeLetter: ipanel->max_size = 10; break;
+        case EntryTypeNumber: ipanel->max_size = MAXNUMLEN; break;
+        case EntryTypeLetter: ipanel->max_size = MAXSTRLEN; break;
         default: ipanel->max_size = 0; break;
     }
     ipanel->left = ipanel->max_size;
@@ -61,7 +61,7 @@ panel_t *panel_input_create(
     init_text(&panel->text, font, initstr);
     trect = sfText_getLocalBounds(panel->text);
     sfText_setOrigin(panel->text, (sfVector2f){
-        trect.left + trect.width / 2.0f, panel->rect->size.y / 7.0f});
+        trect.left + trect.width / 2.0f, panel->rect->size.y / 2.0f});
     sfText_setColor(panel->text, INPUT_TEXT_COLOR);
     init_ipanel(ipanel, type, "");
     return panel;

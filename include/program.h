@@ -12,15 +12,26 @@
     #define WDEPTH 32
     #define WFPS 60
     #define HRESOL 1920, 1080
+    #define STRHRESOL "1920x1080"
     #define MRESOL 1280, 720
+    #define STRMRESOL "1280x720"
     #define LRESOL 800, 600
+    #define STRLRESOL "800x600"
     #define XSRESOL 400, 300
+    #define STRXSRESOL "400x300"
     #include <SFML/Audio.h>
     #include "scene.h"
     #include "cursor.h"
     #include "param.h"
     #define INVENTORYX 8
     #define INVENTORYY 5
+    #define ITEMSIZE 64
+    #define HANDLEX 12.5
+    #define ELEMX 150
+    #define ELEMY 30
+    #define ELEMMARGIN 10
+    #define MAXNUMLEN 4
+    #define MAXSTRLEN 10
 
 enum program_state {
     Created,

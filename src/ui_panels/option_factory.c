@@ -20,25 +20,27 @@
 
 panel_t *resolution_dd(sfFont *font, program_t *prog)
 {
-    panel_t *panel = make_dd(4, (sfVector2f){210, 60});
+    panel_t *panel = make_dd(4,
+        (sfVector2f){ELEMX + ELEMMARGIN, ELEMY + ELEMMARGIN});
     panel_add_childs(panel, 4,
-        make_butt("1920 X 1080", prog, set_high_resol, font),
-        make_butt("1280 X 720", prog, set_medium_resol, font),
-        make_butt("800 X 600", prog, set_low_resol, font),
-        make_butt("400 X 300", prog, set_mini_resol, font));
+        make_butt(STRHRESOL, prog, set_high_resol, font),
+        make_butt(STRMRESOL, prog, set_medium_resol, font),
+        make_butt(STRLRESOL, prog, set_low_resol, font),
+        make_butt(STRXSRESOL, prog, set_mini_resol, font));
     return panel;
 }
 
 static panel_t *resol_dd_butt(sfFont *font, program_t *prog)
 {
-    panel_t *panel = make_ddbutt(font, "1920 X 1080");
+    panel_t *panel = make_ddbutt(font, STRHRESOL);
     panel_add_childs(panel, 1, resolution_dd(font, prog));
     return panel;
 }
 
 panel_t *paramenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){1, 6}, (sfVector2f){440, 70});
+    panel_t *fmain = make_flex((sfVector2i){1, 6},
+        (sfVector2f){2 * (ELEMX + ELEMMARGIN), ELEMY + ELEMMARGIN});
     panel_add_childs(fmain, 6,
         make_label(p->font, "Video"),
         make_label_pair(p->font, "Fullscreen",
@@ -56,7 +58,8 @@ panel_t *paramenuflex(program_t *p)
 
 panel_t *escmenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){1, 8}, (sfVector2f){210, 60});
+    panel_t *fmain = make_flex((sfVector2i){1, 8},
+        (sfVector2f){ELEMX + ELEMMARGIN, ELEMY + ELEMMARGIN});
     panel_add_childs(fmain, 8,
         make_butt("Continue", p, continue_program, p->font),
         make_butt("Inventory", p, open_inventory, p->font),

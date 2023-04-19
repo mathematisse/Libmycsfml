@@ -47,5 +47,5 @@ void on_text_entered(sfTextEvent t, panel_t *panel)
     sfText_setString(panel->text, input->text);
     trect = sfText_getLocalBounds(panel->text);
     sfText_setOrigin(panel->text, (sfVector2f){
-        trect.left + trect.width / 2.0f, panel->rect->size.y / 7.0f});
+        trect.left + trect.width / 2.0f, panel->rect->size.y / 2.0f});
 }

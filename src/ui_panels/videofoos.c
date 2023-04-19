@@ -68,10 +68,10 @@ void toggle_fullscreen(void *data)
     program_t *p = (program_t *)data;
     p->params.fullscreen = !p->params.fullscreen;
     sfRenderWindow_destroy(p->window);
-    p->window = sfRenderWindow_create((sfVideoMode){p->params.width, p->params.height, WDEPTH},
+    p->window = sfRenderWindow_create(
+        (sfVideoMode){p->params.width, p->params.height, WDEPTH},
         WNAME, WRULE | (p->params.fullscreen ? sfFullscreen : 0), NULL);
     sfRenderWindow_setFramerateLimit(p->window, WFPS);
     if (p->params.fullscreen)
         return;
-    //set_medium_resol(p);
 }

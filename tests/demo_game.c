@@ -22,13 +22,16 @@
 
 panel_t *invmenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){85, 85});
-    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
-    for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
-    childs[8 * 4] = NULL;
+    panel_t *fmain = make_flex((sfVector2i){INVENTORYX, INVENTORYY},
+        (sfVector2f){ITEMSIZE + ELEMMARGIN, ITEMSIZE + ELEMMARGIN});
+    panel_t **childs = malloc(sizeof(panel_t) * INVENTORYX * INVENTORYY + 1);
+
+    for (int i = 0; i < INVENTORYX * INVENTORYY; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem(
+            (sfVector2f){ITEMSIZE, ITEMSIZE}), ITEM_BG);
+    childs[INVENTORYX * INVENTORYY] = NULL;
     fmain->childs = childs;
-    fmain->childs_count = 8 * 4;
+    fmain->childs_count = INVENTORYX * INVENTORYY;
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
@@ -36,13 +39,16 @@ panel_t *invmenuflex(program_t *p)
 
 panel_t *statmenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
-    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
-    for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
-    childs[8 * 4] = NULL;
+    panel_t *fmain = make_flex((sfVector2i){INVENTORYX, INVENTORYY},
+        (sfVector2f){ITEMSIZE + ELEMMARGIN, ITEMSIZE + ELEMMARGIN});
+    panel_t **childs = malloc(sizeof(panel_t) * INVENTORYX * INVENTORYY + 1);
+
+    for (int i = 0; i < INVENTORYX * INVENTORYY; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem(
+            (sfVector2f){ITEMSIZE, ITEMSIZE}), ITEM_BG);
+    childs[INVENTORYX * INVENTORYY] = NULL;
     fmain->childs = childs;
-    fmain->childs_count = 8 * 4;
+    fmain->childs_count = INVENTORYX * INVENTORYY;
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;
@@ -50,13 +56,16 @@ panel_t *statmenuflex(program_t *p)
 
 panel_t *cmdmenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){8, 4}, (sfVector2f){75, 75});
-    panel_t **childs = malloc(sizeof(panel_t) * 8 * 4 + 1);
-    for (int i = 0; i < 8 * 4; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){75, 75}), ITEM_BG);
-    childs[8 * 4] = NULL;
+    panel_t *fmain = make_flex((sfVector2i){INVENTORYX, INVENTORYY},
+        (sfVector2f){ITEMSIZE + ELEMMARGIN, ITEMSIZE + ELEMMARGIN});
+    panel_t **childs = malloc(sizeof(panel_t) * INVENTORYX * INVENTORYY + 1);
+
+    for (int i = 0; i < INVENTORYX * INVENTORYY; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem(
+            (sfVector2f){ITEMSIZE, ITEMSIZE}), ITEM_BG);
+    childs[INVENTORYX * INVENTORYY] = NULL;
     fmain->childs = childs;
-    fmain->childs_count = 8 * 4;
+    fmain->childs_count = INVENTORYX * INVENTORYY;
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;

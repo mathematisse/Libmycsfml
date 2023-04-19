@@ -19,7 +19,8 @@
 
 static panel_t *menuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){1, 5}, (sfVector2f){210, 60});
+    panel_t *fmain = make_flex((sfVector2i){1, 5},
+        (sfVector2f){ELEMX + ELEMMARGIN, ELEMY + ELEMMARGIN});
     panel_add_childs(fmain, 5,
         make_label(p->font, "Save Name:"),
         make_name_input(p->font, &(p->params.user)),

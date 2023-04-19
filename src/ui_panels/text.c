@@ -9,15 +9,18 @@
 #include "ui_panels/text.h"
 #include "tools.h"
 #include "ui_panels/flex.h"
+#include "program.h"
+
 panel_t *make_label(sfFont *font, const char *str)
 {
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){ELEMX, ELEMY});
     return panel_text_create(rect, font, str);
 }
 
 panel_t *make_label_pair(sfFont *font, const char *str, panel_t *panel)
 {
-    panel_t *epanel = make_flex((sfVector2i){2, 1}, (sfVector2f){210, 60});
+    panel_t *epanel = make_flex((sfVector2i){2, 1},
+        (sfVector2f){ELEMX + ELEMMARGIN, ELEMY + ELEMMARGIN});
     panel_add_childs(epanel, 2, make_label(font, str), panel);
     epanel->rect->xanchor = ANCHOR_START;
     epanel->rect->yanchor = ANCHOR_START;

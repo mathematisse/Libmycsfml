@@ -32,15 +32,17 @@ panel_t *minimap(void)
 
 panel_t *quick_access(void)
 {
-    panel_t *fmain = make_flex((sfVector2i){8, 1}, (sfVector2f){110, 110});
-    panel_t **childs = malloc(sizeof(panel_t) * 8 + 1);
+    panel_t *fmain = make_flex((sfVector2i){INVENTORYX, 1},
+        (sfVector2f){ITEMSIZE + ELEMMARGIN, ITEMSIZE + ELEMMARGIN});
+    panel_t **childs = malloc(sizeof(panel_t) * INVENTORYX + 1);
     fmain->rect->pos.y = -120;
     fmain->rect->yanchor = ANCHOR_END;
-    for (int i = 0; i < 8; i++)
-        childs[i] = panel_empty_create(rtrans_create_flexelem((sfVector2f){100, 100}), ITEM_BG);
-    childs[8] = NULL;
+    for (int i = 0; i < INVENTORYX; i++)
+        childs[i] = panel_empty_create(rtrans_create_flexelem(
+            (sfVector2f){ITEMSIZE, ITEMSIZE}), ITEM_BG);
+    childs[INVENTORYX] = NULL;
     fmain->childs = childs;
-    fmain->childs_count = 8;
+    fmain->childs_count = INVENTORYX;
     init_rshape(&(fmain->shape), MENU);
     return fmain;
 }

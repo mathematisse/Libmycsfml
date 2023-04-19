@@ -12,14 +12,15 @@
 #include "ui_panels/draggable.h"
 #include "theme.h"
 #include "tools.h"
+#include "program.h"
 
 panel_t *make_slider(void *trgt, slider_foo_t foo)
 {
-    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){200, 50});
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){ELEMX, ELEMY});
     panel_t *epanel = panel_slider_create(rect);
     panel_add_childs(epanel, 2, make_handle_drag((sfVector2f){0, 0}, epanel),
-        panel_empty_create(
-            rtrans_create_flexelem((sfVector2f){200, 10}), ITEM_BG));
+        panel_empty_create(rtrans_create_flexelem(
+            (sfVector2f){ELEMX - 2 * ELEMMARGIN, ELEMY / 5}), ITEM_BG));
     panel_slider_t *spanel = (panel_slider_t *)epanel->data;
     spanel->trgt = trgt;
     spanel->foo = foo;

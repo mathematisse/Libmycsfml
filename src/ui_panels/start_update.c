@@ -20,6 +20,9 @@ void start_esc_pressed(scene_t *s)
     panel_t *mainp = s->canvas->panels[0];
     panel_t *startp = mainp->childs[0];
 
+    if (mainp->childs[1]->state == PANEL_STATE_INACTIVE) {
+        return;
+    }
     if (startp->state == PANEL_STATE_ACTIVE) {
         startp->state = PANEL_STATE_INACTIVE;
     } else {
