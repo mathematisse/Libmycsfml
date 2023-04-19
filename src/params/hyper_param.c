@@ -12,11 +12,11 @@
 
 static void load_hyperparam(prog_param_t *params, const char *line)
 {
-    param_type_t types[6] = {PARAM_INT, PARAM_INT, PARAM_INT,
+    param_type_t types[7] = {PARAM_INT, PARAM_INT, PARAM_INT, PARAM_FLOAT,
         PARAM_FLOAT, PARAM_FLOAT, PARAM_STRING};
-    const char *keys[6] = {"WIDTH", "HEIGHT", "FULLSCREEN",
+    const char *keys[7] = {"WIDTH", "HEIGHT", "FULLSCREEN", "SCALE"
         "MUSIC_VOLUME", "SOUND_VOLUME", "USER"};
-    void *trgts[6] = {&params->width, &params->height, &params->fullscreen,
+    void *trgts[7] = {&params->width, &params->height, &params->fullscreen, &params->scale,
         &params->music_volume, &params->sound_volume, &params->user};
 
     for (int i = 0; i < 6; i++) {
