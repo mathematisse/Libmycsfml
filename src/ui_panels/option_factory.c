@@ -46,7 +46,7 @@ panel_t *paramenuflex(program_t *p)
         make_label_pair(p->font, "Fullscreen",
             make_butt("Toggle", p, toggle_fullscreen, p->font)),
         make_label_pair(p->font, "Resolution", resol_dd_butt(p->font, p)),
-        make_value_control(p->font, "UI Size", p),
+        make_scale_control(p->font, p),
         make_none(),
         make_label(p->font, "Audio"),
         make_label_pair(p->font, "Music", make_slider(p, update_music_volume,

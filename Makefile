@@ -48,8 +48,10 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/start_update.c	\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
+				ui_panels/value_crtl.c		\
 				ui_panels/butt_mfoos.c		\
-				ui_panels/butt_gfoos.c
+				ui_panels/butt_gfoos.c		\
+				ui_panels/butt_user_foos.c
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 

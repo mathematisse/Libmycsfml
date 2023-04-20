@@ -31,5 +31,5 @@ panel_t *panel_image_button_create(rectransform_t *, sfTexture *, ptype_t);
 void panel_button_destroy(panel_t *);
 
 void butt_set_foos(panel_t *, button_foo_t, button_foo_t);
-
+panel_t *make_scale_control(sfFont *font, void *trgt);
 #endif /* BUTTON_H */
