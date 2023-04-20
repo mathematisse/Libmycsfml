@@ -39,13 +39,15 @@ static panel_t *resol_dd_butt(sfFont *font, program_t *prog)
 
 panel_t *paramenuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){1, 6},
+    panel_t *fmain = make_flex((sfVector2i){1, 8},
         (sfVector2f){2 * (ELEMX + ELEMMARGIN), ELEMY + ELEMMARGIN});
-    panel_add_childs(fmain, 6,
+    panel_add_childs(fmain, 8,
         make_label(p->font, "Video"),
         make_label_pair(p->font, "Fullscreen",
             make_butt("Toggle", p, toggle_fullscreen, p->font)),
         make_label_pair(p->font, "Resolution", resol_dd_butt(p->font, p)),
+        make_value_control(p->font, "UI Size", p),
+        make_none(),
         make_label(p->font, "Audio"),
         make_label_pair(p->font, "Music", make_slider(p, update_music_volume,
             p->params.music_volume, p->params.scale)),

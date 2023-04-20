@@ -26,9 +26,9 @@ void resize_event(program_t *p, sfSizeEvent e)
     if (!p->params.fullscreen) {
         p->params.width = e.width;
         p->params.height = e.height;
+        view = sfView_createFromRect((sfFloatRect) {0, 0, e.width, e.height });
+        sfRenderWindow_setView(p->window, view);
     }
-    view = sfView_createFromRect((sfFloatRect) {0, 0, e.width, e.height });
-    sfRenderWindow_setView(p->window, view);
     canvas_resize(p->scenes[p->current_scene]->canvas, &pos, &(size));
 }
 

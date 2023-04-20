@@ -19,11 +19,12 @@
 
 static panel_t *menuflex(program_t *p)
 {
-    panel_t *fmain = make_flex((sfVector2i){1, 5},
+    panel_t *fmain = make_flex((sfVector2i){1, 6},
         (sfVector2f){ELEMX + ELEMMARGIN, ELEMY + ELEMMARGIN});
-    panel_add_childs(fmain, 5,
+    panel_add_childs(fmain, 6,
         make_label(p->font, "Save Name:"),
         make_name_input(p->font, &(p->params.user)),
+        make_butt("Continue", p, change_scene, p->font),
         make_butt("Start", p, change_scene, p->font),
         make_butt("Options", p, mopen_options, p->font),
         make_butt("Quit", p, quit_program, p->font)

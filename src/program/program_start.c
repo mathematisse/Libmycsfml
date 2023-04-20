@@ -18,7 +18,6 @@ int start_first_scene(program_t *p)
         WNAME, WRULE | (p->params.fullscreen ? sfFullscreen : 0), NULL);
     if (!(p->window))
         return EXIT_FAILURE;
-    p->params.fullscreen = 0;
     sfRenderWindow_setFramerateLimit(p->window, 60);
     resize_event(p, (sfSizeEvent)
         {.width = p->params.width, .height = p->params.height});
@@ -28,10 +27,12 @@ int start_first_scene(program_t *p)
 int start_scene(program_t *p, int i)
 {
     scene_t *s = p->scenes[p->current_scene];
+    float scale = s->canvas->scale;
 
     on_panel_unselect(s->canvas->selected);
     s->canvas->selected = NULL;
     s = p->scenes[i];
+    s->canvas->scale = scale;
     on_panel_unselect(s->canvas->selected);
     s->canvas->selected = NULL;
     p->current_scene = i;
@@ -42,6 +43,7 @@ int start_scene(program_t *p, int i)
         &(sfVector2f){p->params.width, p->params.height});
     resize_event(p, (sfSizeEvent)
         {.width = p->params.width, .height = p->params.height});
+    auto_resize(p);
     return EXIT_SUCCESS;
 }
 
