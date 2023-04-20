@@ -8,6 +8,15 @@
 #include "program.h"
 #include "ui_panels/input.h"
 
+void auto_resize(program_t *p)
+{
+    sfVector2u size = sfRenderWindow_getSize(p->window);
+    sfVector2f pos = { -size.x / 2, -size.y / 2};
+
+    canvas_resize(p->scenes[p->current_scene]->canvas, &pos, &(sfVector2f) {
+        size.x, size.y });
+}
+
 void resize_event(program_t *p, sfSizeEvent e)
 {
     sfView *view = NULL;

@@ -16,7 +16,8 @@ static void load_hyperparam(prog_param_t *params, const char *line)
         PARAM_FLOAT, PARAM_FLOAT, PARAM_STRING};
     const char *keys[7] = {"WIDTH", "HEIGHT", "FULLSCREEN", "SCALE",
         "MUSIC_VOLUME", "SOUND_VOLUME", "USER"};
-    void *trgts[7] = {&params->width, &params->height, &params->fullscreen, &params->scale,
+    void *trgts[7] = {&params->width, &params->height,
+        &params->fullscreen, &params->scale,
         &params->music_volume, &params->sound_volume, &params->user};
 
     for (int i = 0; i < 7; i++) {
