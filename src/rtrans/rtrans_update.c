@@ -31,16 +31,17 @@ sfVector2f rtrans_pos_update(
     return pos;
 }
 
-sfVector2f rtrans_size_update(rectransform_t *rect, sfVector2f *psize)
+sfVector2f rtrans_size_update(
+    rectransform_t *rect, sfVector2f *psize, float scale)
 {
     sfVector2f size;
 
     if (!rect || !psize)
         return (sfVector2f){0, 0};
-    size = rect->size;
+    size = (sfVector2f){rect->size.x * scale, rect->size.y * scale};
     if (rect->resize == RESIZE_X || rect->resize == RESIZE_XY)
-        size.x = psize->x - rect->size.x;
+        size.x = psize->x - rect->size.x * scale;
     if (rect->resize == RESIZE_Y || rect->resize == RESIZE_XY)
-        size.y = psize->y - rect->size.y;
+        size.y = psize->y - rect->size.y * scale;
     return size;
 }

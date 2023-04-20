@@ -47,10 +47,10 @@ panel_t *paramenuflex(program_t *p)
             make_butt("Toggle", p, toggle_fullscreen, p->font)),
         make_label_pair(p->font, "Resolution", resol_dd_butt(p->font, p)),
         make_label(p->font, "Audio"),
-        make_label_pair(p->font, "Music",
-            make_slider(p, update_music_volume, p->params.music_volume)),
-        make_label_pair(p->font, "Sound",
-            make_slider(p, update_sound_volume, p->params.sound_volume)));
+        make_label_pair(p->font, "Music", make_slider(p, update_music_volume,
+            p->params.music_volume, p->params.scale)),
+        make_label_pair(p->font, "Sound", make_slider(p, update_sound_volume,
+            p->params.sound_volume, p->params.scale)));
     init_rshape(&(fmain->shape), MENU);
     fmain->state = PANEL_STATE_INACTIVE;
     return fmain;

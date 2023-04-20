@@ -49,5 +49,5 @@ scene_t *start_menu_scene(program_t *p)
         return NULL;
     mpanels[0] = startmenu(p);
     mpanels[1] = NULL;
-    return scene_create(mpanels, NULL);
+    return scene_create(mpanels, NULL, p->params.scale);
 }

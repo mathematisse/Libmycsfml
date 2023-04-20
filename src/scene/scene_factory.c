@@ -9,12 +9,12 @@
 #include "scene.h"
 #include "canvas.h"
 
-scene_t *scene_create(panel_t **panels, content_t *content)
+scene_t *scene_create(panel_t **panels, content_t *content, float scale)
 {
     scene_t *scene = NULL;
     canvas_t *canvas = NULL;
 
-    canvas = canvas_create(panels);
+    canvas = canvas_create(panels, scale);
     if (!canvas)
         return NULL;
     scene = malloc(sizeof(scene_t));

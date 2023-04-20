@@ -20,7 +20,7 @@ scene_t **demo_scenes(program_t *p)
     panels[0] = demogame(p);
     panels[1] = NULL;
     scenes[0] = start_menu_scene(p);
-    scenes[1] = scene_create(panels, demo_content_maker());
+    scenes[1] = scene_create(panels, demo_content_maker(), p->params.scale);
     scenes[2] = NULL;
     return scenes;
 }

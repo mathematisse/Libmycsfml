@@ -42,6 +42,6 @@ rectransform_t *rtrans_create_barright(sfVector2f pos, sfVector2f size);
 void rectransform_destroy(rectransform_t *);
 
 sfVector2f rtrans_pos_update(rectransform_t *, sfVector2f *, sfVector2f *);
-sfVector2f rtrans_size_update(rectransform_t *, sfVector2f *);
+sfVector2f rtrans_size_update(rectransform_t *, sfVector2f *, float);
 
 #endif /* RECTRANSFORM_H */
