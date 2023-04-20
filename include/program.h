@@ -61,6 +61,9 @@ typedef struct program_s {
     int current_scene;
     sfFont *font;
     sfMusic *music;
+    sfClock *clock;
+    float dt;
+    float last_time;
 } program_t;
 
 typedef scene_t **(*program_maker_t)(program_t *);
