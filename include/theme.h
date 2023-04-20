@@ -22,7 +22,7 @@
     #define INPUT_COLOR sfColor_fromRGB(200, 200, 200)
     #define INPUT_TEXT_COLOR sfColor_fromRGB(0, 0, 0)
     #define DROPDOWNCOLOR sfColor_fromRGB(200, 200, 200)
-    #define MUSICVOLUME 50
+    #define MUSICVOLUME 20
     #define SOUNDVOLUME 50
-    #define VOLRANGE 100
+    #define VOLRANGE 40
 #endif /* THEME_H */

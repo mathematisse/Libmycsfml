@@ -10,7 +10,19 @@
 #include "canvas.h"
 #include "theme.h"
 
-canvas_t *canvas_create(panel_t **panels)
+static void load_canvas_sounds(canvas_t *canvas)
+{
+    canvas->spbuf = sfSoundBuffer_createFromFile("ressources/clickpress.ogg");
+    canvas->soundppress = sfSound_create();
+    sfSound_setBuffer(canvas->soundppress, canvas->spbuf);
+    sfSound_setVolume(canvas->soundppress, SOUNDVOLUME);
+    canvas->srbuf = sfSoundBuffer_createFromFile("ressources/clickrelease.ogg");
+    canvas->soundprelease = sfSound_create();
+    sfSound_setBuffer(canvas->soundprelease, canvas->srbuf);
+    sfSound_setVolume(canvas->soundprelease, SOUNDVOLUME);
+}
+
+canvas_t *canvas_create(panel_t **panels, float scale)
 {
     canvas_t *canvas = NULL;
 
@@ -23,14 +35,8 @@ canvas_t *canvas_create(panel_t **panels)
     canvas->hovered = NULL;
     canvas->pressed = NULL;
     canvas->selected = NULL;
-    canvas->spbuf = sfSoundBuffer_createFromFile("ressources/clickpress.ogg");
-    canvas->soundppress = sfSound_create();
-    sfSound_setBuffer(canvas->soundppress, canvas->spbuf);
-    sfSound_setVolume(canvas->soundppress, SOUNDVOLUME);
-    canvas->srbuf = sfSoundBuffer_createFromFile("ressources/clickrelease.ogg");
-    canvas->soundprelease = sfSound_create();
-    sfSound_setBuffer(canvas->soundprelease, canvas->srbuf);
-    sfSound_setVolume(canvas->soundprelease, SOUNDVOLUME);
+    canvas->scale = scale;
+    load_canvas_sounds(canvas);
     return canvas;
 }
 
