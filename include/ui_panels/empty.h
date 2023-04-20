@@ -22,5 +22,6 @@ typedef struct panel_none_s {
 
 panel_t *panel_none_create(rectransform_t *rect);
 void panel_none_destroy(panel_t *panel);
+panel_t *make_none(void);
 
 #endif /* PANEL_EMPTY_H */

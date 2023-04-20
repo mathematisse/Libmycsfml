@@ -27,7 +27,6 @@ SRC			=	canvas/canvas_event.c		\
 				rtrans/rtrans_update.c		\
 				params/hyper_param.c		\
 				params/param_load.c			\
-				params/user_param.c			\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
@@ -63,7 +62,8 @@ OBJ			=	$(SRC:.c=.o)
 DEMOSRC		=	demo_content.c	\
 				demo_game.c		\
 				demo_main.c		\
-				demo_interface.c
+				demo_interface.c\
+				user_param.c
 
 DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
 

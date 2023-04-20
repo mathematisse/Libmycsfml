@@ -32,6 +32,8 @@ typedef void (*content_on_start_t)(void *);
 typedef void (*content_on_pause_t)(void *);
 typedef void (*content_on_resume_t)(void *);
 typedef void (*content_on_stop_t)(void *);
+typedef void (*content_on_save_t)(void *, const char *);
+typedef void (*content_on_load_t)(void *, const char *);
 
 typedef struct content_s content_t;
 typedef content_t *(*content_maker_t)(void);
@@ -57,6 +59,8 @@ struct content_s {
     content_on_pause_t on_pause;
     content_on_resume_t on_resume;
     content_on_stop_t on_stop;
+    content_on_save_t saver;
+    content_on_load_t loader;
 };
 
 #endif /* CONTENT_H */

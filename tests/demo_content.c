@@ -88,6 +88,16 @@ void demo_content_on_stop(void *content)
     printf("Demo content on stop called\n");
 }
 
+void demo_content_saver(void *content, const char *path)
+{
+    printf("Saved in %s\n", path);
+}
+
+void demo_content_loader(void *content, const char *path)
+{
+    printf("loaded from %s\n", path);
+}
+
 void initialie_content(content_t *content)
 {
     content->content = NULL;
@@ -109,6 +119,8 @@ void initialie_content(content_t *content)
     content->on_pause = NULL;
     content->on_resume = NULL;
     content->on_stop = NULL;
+    content->saver = NULL;
+    content->loader = NULL;
 }
 
 content_t *demo_content_maker(void)
@@ -134,5 +146,7 @@ content_t *demo_content_maker(void)
     content->on_pause = demo_content_on_pause;
     content->on_resume = demo_content_on_resume;
     content->on_stop = demo_content_on_stop;
+    content->saver = demo_content_saver;
+    content->loader = demo_content_loader;
     return content;
 }

@@ -5,7 +5,9 @@
 ** Main function for the demo
 */
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "program.h"
 
 void quit_game(void *data)
@@ -46,14 +48,4 @@ void open_stats(void *data)
 
     panels[1]->state = PANEL_STATE_INACTIVE;
     panels[3]->state = PANEL_STATE_ACTIVE;
-}
-
-void save_content(void *data)
-{
-    printf("Saving content with %p!\n", data);
-}
-
-void load_content(void *data)
-{
-    printf("Loading content with %p!\n", data);
 }
