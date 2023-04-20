@@ -23,6 +23,7 @@ program_t *create_program(program_maker_t maker)
     prog->current_scene = -1;
     prog->font = sfFont_createFromFile("ressources/lato_bold.ttf");
     prog->music = sfMusic_createFromFile("ressources/blues.ogg");
+    prog->clock = sfClock_create();
     sfMusic_setLoop(prog->music, sfTrue);
     sfMusic_setVolume(prog->music,
         prog->params.music_volume * VOLRANGE + MUSICVOLUME - VOLRANGE / 2);

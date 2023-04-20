@@ -50,3 +50,18 @@ void load_userparams(user_t *params, const char* path)
     }
     fclose(file);
 }
+
+void save_userparams(user_t *params, const char* path)
+{
+    FILE* file = NULL;
+
+    file = fopen(path, "w");
+    if (file == NULL)
+        return;
+    fprintf(file, "CREDIT = %d\n", params->credit);
+    fprintf(file, "SCORE = %d\n", params->score);
+    fprintf(file, "LEVEL = %d\n", params->level);
+    fprintf(file, "WALK_SPEED = %f\n", params->walk_speed);
+    fprintf(file, "RELOAD_SPEED = %f\n", params->reload_speed);
+    fprintf(file, "LIFE = %f\n\n", params->life);
+}

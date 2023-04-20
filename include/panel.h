@@ -55,7 +55,8 @@ void on_panel_pressed(panel_t *panel);
 void on_panel_released(panel_t *panel);
 void on_panel_select(panel_t *panel);
 void on_panel_unselect(panel_t *panel);
-void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size);
+void panel_resize(
+    panel_t *panel, sfVector2f *pos, sfVector2f *size, float scale);
 void panel_draw(sfRenderWindow *window, panel_t *panel);
 
 panel_t *get_hovered_panel(panel_t **panels, sfVector2i *pos);

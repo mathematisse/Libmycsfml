@@ -51,9 +51,7 @@ panel_t *quick_access(void)
 panel_t *game_interface(void)
 {
     rectransform_t *mrect = rtrans_create_resize();
-    mrect->xanchor = ANCHOR_START;
-    mrect->yanchor = ANCHOR_START;
-    panel_t *main = panel_empty_create(mrect, sfTransparent);
+    panel_t *main = panel_none_create(mrect);
     panel_add_childs(main, 2, quick_access(), minimap());
     return main;
 }

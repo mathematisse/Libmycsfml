@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "panel.h"
 #include "ui_panels/flex.h"
+#include "ui_panels/draggable.h"
 
 static void sprite_rect_set(panel_t *panel)
 {
@@ -19,16 +20,18 @@ static void sprite_rect_set(panel_t *panel)
     sfSprite_setPosition(panel->sprite, sprite_pos);
 }
 
-static void text_rect_set(panel_t *panel)
+static void text_rect_set(panel_t *panel, float scale)
 {
-    sfVector2f text_pos;
+    sfFloatRect trect;
 
-    text_pos.x = panel->pos.x + 5;
-    text_pos.y = panel->pos.y;
-    sfText_setPosition(panel->text, text_pos);
+    sfText_setCharacterSize(panel->text, (unsigned int) 20.0 * scale);
+    trect = sfText_getLocalBounds(panel->text);
+    sfText_setOrigin(panel->text, (sfVector2f){
+        trect.left + trect.width / 2.0f, panel->size.y / 2.0f});
+    sfText_setPosition(panel->text, panel->pos);
 }
 
-static void panel_rect_set(panel_t *panel)
+static void panel_rect_set(panel_t *panel, float scale)
 {
     if (!panel)
         return;
@@ -42,19 +45,28 @@ static void panel_rect_set(panel_t *panel)
         sprite_rect_set(panel);
     }
     if (panel->text) {
-        text_rect_set(panel);
+        text_rect_set(panel, scale);
     }
 }
 
-void panel_resize(panel_t *panel, sfVector2f *pos, sfVector2f *size)
+void panel_resize(
+    panel_t *panel, sfVector2f *pos, sfVector2f *size, float scale)
 {
     if (!panel || !pos || !size)
         return;
+    if (panel->type == PANEL_TYPE_DRAG)
+        drag_repos(panel, scale);
     panel->pos = rtrans_pos_update(panel->rect, pos, size);
-    panel->size = rtrans_size_update(panel->rect, size);
-    for (int i = 0; i < panel->childs_count; i++)
-        panel_resize(panel->childs[i], &(panel->pos), &(panel->size));
-    panel_rect_set(panel);
+    if (panel->rect->resize == RESIZE_X || panel->rect->resize == RESIZE_XY)
+        panel->pos.x = 0;
+    if (panel->rect->resize == RESIZE_Y || panel->rect->resize == RESIZE_XY)
+        panel->pos.y = 0;
     if (panel->type == PANEL_TYPE_FLEX)
-        panel_flex_repos(panel);
+        panel_flex_update(panel);
+    panel->size = rtrans_size_update(panel->rect, size, scale);
+    for (int i = 0; i < panel->childs_count; i++)
+        panel_resize(panel->childs[i], &(panel->pos), &(panel->size), scale);
+    panel_rect_set(panel, scale);
+    if (panel->type == PANEL_TYPE_FLEX)
+        panel_flex_repos(panel, scale);
 }

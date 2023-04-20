@@ -32,6 +32,7 @@ panel_drag_t *drag_create(void)
         return NULL;
     dpanel->offset = (sfVector2f){0, 0};
     dpanel->bounds = (sfFloatRect){0, 0, 0, 0};
+    dpanel->parent = NULL;
     return dpanel;
 }
 

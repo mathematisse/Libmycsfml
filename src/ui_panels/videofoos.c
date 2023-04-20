@@ -10,6 +10,7 @@
 void set_high_resol(void *p)
 {
     program_t *prog = (program_t *)p;
+
     if (prog->params.fullscreen) {
         prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
@@ -19,11 +20,13 @@ void set_high_resol(void *p)
         return;
     }
     sfRenderWindow_setSize(prog->window, (sfVector2u){HRESOL});
+    auto_resize(prog);
 }
 
 void set_medium_resol(void *p)
 {
     program_t *prog = (program_t *)p;
+
     if (prog->params.fullscreen) {
         prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
@@ -33,11 +36,13 @@ void set_medium_resol(void *p)
         return;
     }
     sfRenderWindow_setSize(prog->window, (sfVector2u){MRESOL});
+    auto_resize(prog);
 }
 
 void set_low_resol(void *p)
 {
     program_t *prog = (program_t *)p;
+
     if (prog->params.fullscreen) {
         prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
@@ -47,11 +52,13 @@ void set_low_resol(void *p)
         return;
     }
     sfRenderWindow_setSize(prog->window, (sfVector2u){LRESOL});
+    auto_resize(prog);
 }
 
 void set_mini_resol(void *p)
 {
     program_t *prog = (program_t *)p;
+
     if (prog->params.fullscreen) {
         prog->params.fullscreen = 0;
         sfRenderWindow_close(prog->window);
@@ -61,6 +68,7 @@ void set_mini_resol(void *p)
         return;
     }
     sfRenderWindow_setSize(prog->window, (sfVector2u){XSRESOL});
+    auto_resize(prog);
 }
 
 void toggle_fullscreen(void *data)
@@ -72,6 +80,5 @@ void toggle_fullscreen(void *data)
         (sfVideoMode){p->params.width, p->params.height, WDEPTH},
         WNAME, WRULE | (p->params.fullscreen ? sfFullscreen : 0), NULL);
     sfRenderWindow_setFramerateLimit(p->window, WFPS);
-    if (p->params.fullscreen)
-        return;
+    auto_resize(p);
 }

@@ -15,7 +15,7 @@ typedef struct scene_s {
     content_t *content;
 } scene_t;
 
-scene_t *scene_create(panel_t **panels, content_t *content);
+scene_t *scene_create(panel_t **panels, content_t *content, float scale);
 void scenes_destroy(scene_t **scenes);
 
 void scene_hover(scene_t *s, sfVector2i e);

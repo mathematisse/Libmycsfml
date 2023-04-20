@@ -8,6 +8,15 @@
 #include "program.h"
 #include "ui_panels/input.h"
 
+void auto_resize(program_t *p)
+{
+    sfVector2u size = sfRenderWindow_getSize(p->window);
+    sfVector2f pos = { -size.x / 2, -size.y / 2};
+
+    canvas_resize(p->scenes[p->current_scene]->canvas, &pos, &(sfVector2f) {
+        size.x, size.y });
+}
+
 void resize_event(program_t *p, sfSizeEvent e)
 {
     sfView *view = NULL;
@@ -17,9 +26,9 @@ void resize_event(program_t *p, sfSizeEvent e)
     if (!p->params.fullscreen) {
         p->params.width = e.width;
         p->params.height = e.height;
+        view = sfView_createFromRect((sfFloatRect) {0, 0, e.width, e.height });
+        sfRenderWindow_setView(p->window, view);
     }
-    view = sfView_createFromRect((sfFloatRect) {0, 0, e.width, e.height });
-    sfRenderWindow_setView(p->window, view);
     canvas_resize(p->scenes[p->current_scene]->canvas, &pos, &(size));
 }
 

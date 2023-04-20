@@ -27,7 +27,6 @@ SRC			=	canvas/canvas_event.c		\
 				rtrans/rtrans_update.c		\
 				params/hyper_param.c		\
 				params/param_load.c			\
-				params/user_param.c			\
 				program/program_event.c		\
 				program/program_execute.c	\
 				program/program_factory.c	\
@@ -49,8 +48,10 @@ SRC			=	canvas/canvas_event.c		\
 				ui_panels/start_update.c	\
 				ui_panels/text.c			\
 				ui_panels/videofoos.c		\
+				ui_panels/value_crtl.c		\
 				ui_panels/butt_mfoos.c		\
-				ui_panels/butt_gfoos.c
+				ui_panels/butt_gfoos.c		\
+				ui_panels/butt_user_foos.c
 
 CFLAGS		=	-W -Wall -Wextra -Wpedantic -I./include
 
@@ -63,7 +64,8 @@ OBJ			=	$(SRC:.c=.o)
 DEMOSRC		=	demo_content.c	\
 				demo_game.c		\
 				demo_main.c		\
-				demo_interface.c
+				demo_interface.c\
+				user_param.c
 
 DEMOSRC		:=	$(addprefix tests/, $(DEMOSRC))
 

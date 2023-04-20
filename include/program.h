@@ -61,6 +61,9 @@ typedef struct program_s {
     int current_scene;
     sfFont *font;
     sfMusic *music;
+    sfClock *clock;
+    float dt;
+    float last_time;
 } program_t;
 
 typedef scene_t **(*program_maker_t)(program_t *);
@@ -72,6 +75,6 @@ int start_scene(program_t *p, int i);
 int execute_program(program_maker_t maker);
 int loop_events(program_t *p);
 void resize_event(program_t *p, sfSizeEvent e);
-
+void auto_resize(program_t *p);
 panel_t *paramenuflex(program_t *p);
 #endif /* PROGRAM_H */

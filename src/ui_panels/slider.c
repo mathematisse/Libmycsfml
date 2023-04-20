@@ -14,15 +14,17 @@
 #include "tools.h"
 #include "program.h"
 
-static void init_handle_pos_at_value(panel_t *dpanel, float value)
+static void init_handle_pos_at_value(panel_t *dpanel, float value, float scale)
 {
     panel_drag_t *dpanel_data = (panel_drag_t *)dpanel->data;
 
-    dpanel->rect->pos = (sfVector2f){
-        value * dpanel_data->bounds.width + dpanel_data->bounds.left, 0};
+    dpanel->rect->pos = (sfVector2f){value * dpanel_data->bounds.width
+        * scale + dpanel_data->bounds.left * scale, 0};
+    dpanel_data->offset = dpanel->rect->pos;
 }
 
-panel_t *make_slider(void *trgt, slider_foo_t foo, float init_value)
+panel_t *make_slider(
+    void *trgt, slider_foo_t foo, float init_value, float scale)
 {
     panel_slider_t *spanel = NULL;
     rectransform_t *rect = rtrans_create_flexelem((sfVector2f){ELEMX, ELEMY});
@@ -34,7 +36,7 @@ panel_t *make_slider(void *trgt, slider_foo_t foo, float init_value)
     spanel = (panel_slider_t *)epanel->data;
     spanel->trgt = trgt;
     spanel->foo = foo;
-    init_handle_pos_at_value(epanel->childs[0], init_value);
+    init_handle_pos_at_value(epanel->childs[0], init_value, scale);
     return epanel;
 }
 

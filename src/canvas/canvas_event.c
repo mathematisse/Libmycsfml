@@ -11,10 +11,11 @@
 
 void canvas_resize(canvas_t *c, sfVector2f *pos, sfVector2f *size)
 {
+    sfVector2f pos_scaled = {pos->x * c->scale, pos->y * c->scale};
     if (!c || !pos || !size)
         return;
     for (int i = 0; c->panels[i]; i++)
-        panel_resize(c->panels[i], pos, size);
+        panel_resize(c->panels[i], &pos_scaled, size, c->scale);
     on_panel_unselect(c->selected);
     c->selected = NULL;
 }
@@ -30,10 +31,11 @@ void canvas_hover(canvas_t *c, sfVector2i *pos)
         on_panel_leave(c->hovered);
         if (hovered != c->selected)
             on_panel_enter(hovered);
-        c->hovered = hovered;
+        if (!hovered || hovered->type != PANEL_TYPE_NONE)
+            c->hovered = hovered;
     }
     if (c->pressed && c->pressed->type == PANEL_TYPE_DRAG) {
-        on_drag_move(c->pressed, (sfVector2f){pos->x, pos->y});
+        on_drag_move(c->pressed, (sfVector2f){pos->x, pos->y}, c->scale);
     }
 }
 
@@ -60,6 +62,10 @@ void canvas_released(canvas_t *c, sfMouseButtonEvent e)
         on_panel_select(c->pressed);
         on_panel_unselect(c->selected);
         c->selected = c->pressed;
+    }
+    if (c->selected && c->selected->type == PTYPE_EVBUTT) {
+        on_panel_unselect(c->selected);
+        c->selected = NULL;
     }
     c->pressed = NULL;
 }

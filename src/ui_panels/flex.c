@@ -47,24 +47,35 @@ void panel_flex_destroy(panel_t *panel)
     panel_destroy(panel);
 }
 
-void panel_flex_repos(panel_t *panel)
+void panel_flex_update(panel_t *panel)
 {
     panel_flex_t *fpanel = panel->data;
-    int ptr = 0;
-    int i = 0, j = 0;
-    float x = 0, y = 0;
 
     if (!panel)
         return;
-    for (; ptr < panel->childs_count; ptr++) {
-        x = (float)j * fpanel->elem_size.x;
-        y = (float)i * fpanel->elem_size.y;
-        panel->childs[ptr]->rect->pos =
-            (sfVector2f){
-                x - panel->rect->size.x / 2 + fpanel->elem_size.x / 2,
-                y - panel->rect->size.y / 2 + fpanel->elem_size.y / 2};
-        j++;
-        if (j >= fpanel->counts.x) {
+
+    panel->rect->size.x = fpanel->counts.x * fpanel->elem_size.x;
+    panel->rect->size.y = fpanel->counts.y * fpanel->elem_size.y;
+}
+
+void panel_flex_repos(panel_t *panel, float scale)
+{
+    panel_flex_t *fpanel = panel->data;
+    int i = 0, j = 0;
+    float x = 0, y = 0;
+    float xelem = fpanel->elem_size.x * scale;
+    float yelem = fpanel->elem_size.y * scale;
+    float xrect = panel->rect->size.x * scale;
+    float yrect = panel->rect->size.y * scale;
+
+    if (!panel)
+        return;
+    for (int ptr = 0; ptr < panel->childs_count; ptr++) {
+        x = (float) j * xelem;
+        y = (float) i * yelem;
+        panel->childs[ptr]->rect->pos = (sfVector2f){
+            x - (xrect / 2) + (xelem / 2), y - (yrect / 2) + (yelem / 2)};
+        if (++j >= fpanel->counts.x) {
             j = 0;
             i++;
         }

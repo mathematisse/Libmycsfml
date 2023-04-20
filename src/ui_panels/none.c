@@ -7,7 +7,16 @@
 
 #include <stdlib.h>
 #include "ui_panels/empty.h"
+#include "program.h"
 #include "tools.h"
+
+panel_t *make_none(void)
+{
+    rectransform_t *rect = rtrans_create_flexelem((sfVector2f){ELEMX, ELEMY});
+    panel_t *epanel = panel_none_create(rect);
+
+    return epanel;
+}
 
 panel_t *panel_none_create(rectransform_t *rect)
 {

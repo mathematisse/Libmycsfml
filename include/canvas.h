@@ -19,9 +19,10 @@ typedef struct canvas_s {
     sfSound *soundppress;
     sfSoundBuffer *srbuf;
     sfSound *soundprelease;
+    float scale;
 } canvas_t;
 
-canvas_t *canvas_create(panel_t **panels);
+canvas_t *canvas_create(panel_t **panels, float scale);
 void canvas_destroy(canvas_t *canvas);
 void canvas_resize(canvas_t *c, sfVector2f *pos, sfVector2f *size);
 void canvas_hover(canvas_t *c, sfVector2i *pos);
