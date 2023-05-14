@@ -10,6 +10,9 @@
     #include "rectransform.h"
 
 typedef enum panel_type {
+    PANEL_T_SHAPE,
+    PANEL_T_SPRITE,
+    PANEL_T_TEXT,
     PANEL_TYPE_NONE,
     PANEL_TYPE_EMPTY,
     PANEL_TYPE_CONTENT,
@@ -32,9 +35,6 @@ typedef enum panel_state {
 
 typedef struct panel_s panel_t;
 struct panel_s {
-    sfRectangleShape *shape;
-    sfSprite *sprite;
-    sfText *text;
     ptype_t type;
     pstate_t state;
     void *data;
@@ -60,5 +60,7 @@ void panel_resize(
 void panel_draw(sfRenderWindow *window, panel_t *panel);
 
 panel_t *get_hovered_panel(panel_t **panels, sfVector2i *pos);
+
+int is_primitive(ptype_t t);
 
 #endif /* PANEL_H */
